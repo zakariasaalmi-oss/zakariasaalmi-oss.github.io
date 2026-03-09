@@ -1,0 +1,2730 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Salmi</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=JetBrains+Mono:wght@400;700&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════
+   TOKENS — Warm Cream + Deep Indigo
+══════════════════════════════════════════ */
+:root {
+  --cream:    #EDE8DE;
+  --cream2:   #E4DDD0;
+  --cream3:   #D8D0C2;
+  --ink:      #1C1F2E;
+  --ink2:     #3A3F52;
+  --ink3:     #7B82A0;
+  --topbar:   #1C1F2E;
+  --blue:     #2B4ECC;
+  --blue-l:   #4B6EEC;
+  --gold:     #C8860A;
+  --gold-l:   #E8A020;
+  --teal:     #0B8C78;
+  --teal-l:   #12B898;
+  --rose:     #C83050;
+  --rose-l:   #E84070;
+  --violet:   #6B30CC;
+  --violet-l: #8B50EC;
+  --green:    #1A8C4A;
+  --green-l:  #28B860;
+  --card:     #F5F0E8;
+  --card2:    #EDE8DE;
+  --border:   #C8C0B0;
+  --shadow:   0 4px 20px rgba(28,31,46,.12);
+  --shadow-md:0 8px 32px rgba(28,31,46,.18);
+  --shadow-lg:0 16px 48px rgba(28,31,46,.22);
+  --r:        20px;
+  --r-sm:     12px;
+  /* accent bg tints (light) */
+  --blue-bg:  #EEF1FF;
+  --gold-bg:  #FFF5E0;
+  --teal-bg:  #E0F5F1;
+  --rose-bg:  #FFEBEF;
+  --violet-bg:#F2EEFF;
+  --green-bg: #E4F7EC;
+}
+/* ── DARK MODE ── */
+body.dark {
+  --cream:    #0F1017;
+  --cream2:   #161820;
+  --cream3:   #1E2130;
+  --ink:      #E8EAF0;
+  --ink2:     #B0B8CC;
+  --ink3:     #6A7490;
+  --topbar:   #0D0F18;
+  --card:     #161820;
+  --card2:    #1A1D28;
+  --border:   #2A2E42;
+  --shadow:   0 4px 20px rgba(0,0,0,.4);
+  --shadow-md:0 8px 32px rgba(0,0,0,.5);
+  --shadow-lg:0 16px 48px rgba(0,0,0,.6);
+  --blue-bg:  #1A2244;
+  --gold-bg:  #2A2010;
+  --teal-bg:  #0E2822;
+  --rose-bg:  #2A1018;
+  --violet-bg:#1E1440;
+  --green-bg: #0E2818;
+}
+/* font-family switch per lang */
+body.lang-en, body.lang-fr { font-family: 'Poppins', sans-serif; }
+body.lang-ar { font-family: 'Tajawal', sans-serif; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 15px; }
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background .3s, color .3s;
+}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream2); }
+::-webkit-scrollbar-thumb { background: var(--cream3); border-radius: 2px; }
+
+/* ══════════════════════════════════════════
+   AUTH SCREEN
+══════════════════════════════════════════ */
+#auth-screen {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(ellipse 50% 40% at 70% 10%, #2B4ECC18, transparent),
+    radial-gradient(ellipse 40% 50% at 10% 80%, #C8860A12, transparent),
+    var(--cream);
+}
+.auth-wrap { width: 100%; max-width: 380px; }
+.auth-logo { text-align: center; margin-bottom: 32px; }
+.auth-logo-icon {
+  width: 80px; height: 80px; border-radius: 22px;
+  background: var(--ink);
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-md);
+  animation: auth-float 3s ease-in-out infinite;
+}
+.auth-logo-icon svg { width: 44px; height: 44px; }
+@keyframes auth-float {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-8px) rotate(-2deg); }
+}
+.auth-logo h1 { font-size: 2rem; font-weight: 900; letter-spacing: -1px; color: var(--ink); }
+.auth-logo h1 em { font-style: normal; color: var(--blue); }
+.auth-logo p { color: var(--ink3); font-size: .88rem; margin-top: 4px; }
+
+.auth-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 28px 28px 24px;
+  box-shadow: var(--shadow-lg);
+}
+.auth-card h2 { font-size: 1.25rem; font-weight: 800; margin-bottom: 20px; color: var(--ink); }
+.f-group { margin-bottom: 14px; }
+.f-group label { display: block; font-size: .8rem; color: var(--ink3); font-weight: 700; margin-bottom: 5px; letter-spacing: .3px; }
+.f-wrap {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--cream); border: 1.5px solid var(--border);
+  border-radius: var(--r-sm); padding: 0 13px;
+  transition: border-color .2s, box-shadow .2s;
+}
+.f-wrap:focus-within { border-color: var(--blue); box-shadow: 0 0 0 3px #2B4ECC22; }
+.f-wrap input {
+  flex: 1; background: transparent; border: none; outline: none;
+  color: var(--ink); font-size: .92rem; padding: 12px 0;
+  font-family: 'Tajawal', sans-serif;
+}
+.f-wrap input::placeholder { color: var(--ink3); }
+.f-wrap .fi { color: var(--ink3); font-size: 1rem; flex-shrink: 0; }
+.eye-btn { background: none; border: none; color: var(--ink3); cursor: pointer; font-size: .9rem; padding: 2px; }
+.auth-msg { font-size: .82rem; text-align: center; margin: 8px 0; min-height: 1em; }
+.auth-msg.err { color: var(--rose); }
+.auth-msg.ok  { color: var(--green); }
+
+.btn-main {
+  width: 100%; padding: 13px; border-radius: var(--r-sm);
+  background: var(--ink); color: #fff;
+  font-size: .95rem; font-weight: 800; font-family: 'Tajawal', sans-serif;
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  box-shadow: 0 4px 16px rgba(28,31,46,.3);
+  transition: all .2s; margin-top: 4px;
+}
+.btn-main:hover { background: var(--blue); transform: translateY(-2px); box-shadow: 0 8px 24px #2B4ECC44; }
+.link-btn {
+  background: none; border: none; color: var(--blue);
+  font-size: .88rem; font-weight: 700; cursor: pointer;
+  width: 100%; text-align: center; margin-top: 12px;
+  font-family: 'Tajawal', sans-serif; padding: 4px;
+  transition: opacity .2s;
+}
+.link-btn:hover { opacity: .75; }
+
+/* ══════════════════════════════════════════
+   MAIN APP
+══════════════════════════════════════════ */
+#main-app { display: none; flex-direction: column; min-height: 100vh; }
+
+/* topbar */
+.topbar {
+  position: sticky; top: 0; z-index: 200;
+  background: var(--topbar);
+  padding: 0 14px;
+  height: 64px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  transition: background .3s;
+}
+.tb-left {
+  display: flex; align-items: center; gap: 6px;
+  justify-content: flex-start;
+}
+.tb-center {
+  display: flex; align-items: center; justify-content: center;
+}
+.tb-right {
+  display: flex; align-items: center; gap: 6px;
+  justify-content: flex-end;
+}
+.tb-btn {
+  width: 38px; height: 38px; border-radius: 11px;
+  background: rgba(255,255,255,.1); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 1rem; transition: background .2s;
+  flex-shrink: 0;
+}
+.tb-btn:hover { background: rgba(255,255,255,.22); }
+/* back button hidden by default */
+#tb-back { display: none; }
+#tb-back.visible { display: flex; }
+.topbar-logo {
+  display: flex; align-items: center; gap: 8px;
+}
+.topbar-logo-icon {
+  width: 32px; height: 32px; border-radius: 9px;
+  background: rgba(255,255,255,.15);
+  display: flex; align-items: center; justify-content: center;
+}
+.topbar-logo-icon svg { width: 18px; height: 18px; }
+.topbar h1 {
+  color: #fff; font-size: 1.22rem; font-weight: 900;
+  letter-spacing: .5px; white-space: nowrap;
+}
+.n-badge {
+  position: absolute; top: -3px; right: -3px;
+  width: 15px; height: 15px; border-radius: 50%;
+  background: var(--rose-l); font-size: .6rem; font-weight: 800;
+  color: #fff; display: none; align-items: center; justify-content: center;
+  border: 2px solid var(--topbar);
+}
+.notif-btn { position: relative; }
+
+/* breadcrumb — now inside topbar space, shown below bar */
+.breadcrumb {
+  display: none; align-items: center; gap: 6px;
+  padding: 7px 16px 0;
+  background: var(--cream); border-bottom: 1px solid var(--border);
+}
+.breadcrumb.visible { display: flex; }
+.bc-back {
+  background: none; border: none; cursor: pointer;
+  color: var(--blue); font-size: .82rem; font-weight: 700;
+  display: flex; align-items: center; gap: 4px;
+  font-family: inherit; padding: 4px 0;
+}
+.bc-sep { color: var(--ink3); font-size: .75rem; }
+.bc-cur { color: var(--ink); font-size: .82rem; font-weight: 700; }
+
+/* main content */
+.main-content { flex: 1; padding: 16px 14px 30px; }
+
+/* ══════════════════════════════════════════
+   HOME GRID — ICON TILES
+══════════════════════════════════════════ */
+#home-screen { display: block; }
+
+.home-header { margin-bottom: 20px; }
+.home-greeting { color: var(--ink3); font-size: .82rem; font-weight: 600; }
+.home-name { font-size: 1.6rem; font-weight: 900; color: var(--ink); margin: 2px 0; }
+.home-date { color: var(--ink3); font-size: .78rem; }
+
+/* quick strip */
+.quick-strip {
+  display: flex; gap: 8px; overflow-x: auto;
+  padding-bottom: 4px; margin-bottom: 20px;
+  scrollbar-width: none;
+}
+.quick-strip::-webkit-scrollbar { display: none; }
+.qs-item {
+  flex-shrink: 0;
+  display: flex; align-items: center; gap: 6px;
+  background: var(--card); border: 1.5px solid var(--border);
+  border-radius: 30px; padding: 7px 14px;
+  cursor: pointer; transition: all .2s;
+  font-size: .8rem; font-weight: 700; color: var(--ink2);
+  font-family: 'Tajawal', sans-serif;
+}
+.qs-item:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+.qs-icon { font-size: .95rem; }
+
+/* icon grid */
+.icon-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.tile {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 22px;
+  padding: 22px 16px 18px;
+  cursor: pointer;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 12px; text-align: center;
+  transition: all .25s;
+  box-shadow: var(--shadow);
+  position: relative; overflow: hidden;
+}
+.tile::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.6) 0%, transparent 60%);
+  border-radius: 22px;
+  pointer-events: none;
+}
+.tile:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+.tile:active { transform: scale(.97); }
+
+.tile-icon-wrap {
+  width: 72px; height: 72px; border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.tile-icon-wrap svg { width: 40px; height: 40px; }
+.tile-label { font-size: .9rem; font-weight: 800; color: var(--ink); }
+.tile-sub   { font-size: .72rem; color: var(--ink3); margin-top: -6px; }
+
+/* tile colour themes */
+.tile-blue   { --tc: #2B4ECC; --tcl: #EEF1FF; }
+.tile-gold   { --tc: #C8860A; --tcl: #FFF5E0; }
+.tile-teal   { --tc: #0B8C78; --tcl: #E0F5F1; }
+.tile-rose   { --tc: #C83050; --tcl: #FFEBEF; }
+.tile-violet { --tc: #6B30CC; --tcl: #F2EEFF; }
+.tile-green  { --tc: #1A8C4A; --tcl: #E4F7EC; }
+
+.tile .tile-icon-wrap { background: var(--tcl); }
+.tile:hover { background: var(--tcl); border-color: var(--tc); }
+.tile:hover .tile-label { color: var(--tc); }
+
+/* badge on tile */
+.tile-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: var(--rose-l); color: #fff;
+  font-size: .65rem; font-weight: 800; min-width: 18px; height: 18px;
+  border-radius: 9px; padding: 0 5px;
+  display: none; align-items: center; justify-content: center;
+}
+
+/* ══════════════════════════════════════════
+   INNER PAGES
+══════════════════════════════════════════ */
+.inner-page { display: none; animation: page-in .3s ease; }
+.inner-page.active { display: block; }
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* page header */
+.page-hero {
+  border-radius: 20px; padding: 22px 20px;
+  margin-bottom: 18px; position: relative; overflow: hidden;
+}
+.page-hero h2 { font-size: 1.4rem; font-weight: 900; margin-bottom: 4px; }
+.page-hero p  { font-size: .82rem; opacity: .85; }
+.page-hero .hero-deco {
+  position: absolute; left: -10px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 5rem; opacity: .12;
+  pointer-events: none;
+}
+
+/* ══════════════════════════════════════════
+   SHARED COMPONENTS
+══════════════════════════════════════════ */
+.card {
+  background: var(--card); border: 1.5px solid var(--border);
+  border-radius: var(--r); padding: 18px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+}
+.card-title {
+  font-size: .88rem; font-weight: 800; color: var(--ink);
+  display: flex; align-items: center; gap: 7px;
+  margin-bottom: 14px;
+}
+.card-title .ct-icon {
+  width: 28px; height: 28px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .85rem;
+}
+
+.inp {
+  width: 100%; background: var(--cream); border: 1.5px solid var(--border);
+  border-radius: var(--r-sm); color: var(--ink);
+  padding: 11px 14px; font-size: .88rem;
+  font-family: 'Tajawal', sans-serif;
+  outline: none; transition: border-color .2s, box-shadow .2s;
+  margin-bottom: 10px;
+}
+.inp:focus { border-color: var(--blue); box-shadow: 0 0 0 3px #2B4ECC1A; }
+.inp::placeholder { color: var(--ink3); }
+textarea.inp { resize: vertical; min-height: 80px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 11px 20px; border-radius: var(--r-sm);
+  font-weight: 800; font-size: .88rem; cursor: pointer;
+  transition: all .2s; border: none; font-family: 'Tajawal', sans-serif;
+}
+.btn-ink { background: var(--ink); color: #fff; box-shadow: 0 4px 14px rgba(28,31,46,.25); }
+.btn-ink:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(28,31,46,.3); }
+.btn-outline {
+  background: transparent; color: var(--ink2);
+  border: 1.5px solid var(--border);
+}
+.btn-outline:hover { border-color: var(--ink); color: var(--ink); background: var(--cream2); }
+.btn-full { width: 100%; }
+.btn-sm { padding: 8px 14px; font-size: .8rem; }
+
+.tag {
+  display: inline-flex; align-items: center;
+  padding: 3px 10px; border-radius: 20px;
+  font-size: .72rem; font-weight: 700;
+}
+
+.divider { height: 1px; background: var(--border); margin: 16px 0; }
+.empty {
+  text-align: center; padding: 28px 16px; color: var(--ink3);
+}
+.empty .e-ico { font-size: 2.2rem; margin-bottom: 8px; }
+.empty p { font-size: .85rem; }
+.msg { font-size: .82rem; margin: 8px 0; }
+.msg.ok  { color: var(--green); }
+.msg.err { color: var(--rose); }
+
+/* ══════════════════════════════════════════
+   EXAMS
+══════════════════════════════════════════ */
+.exam-item {
+  display: flex; align-items: center; gap: 13px;
+  background: var(--card); border: 1.5px solid var(--border);
+  border-radius: var(--r); padding: 14px 16px;
+  margin-bottom: 10px; cursor: pointer; transition: all .2s;
+}
+.exam-item:hover { border-color: var(--ink); transform: translateX(-3px); box-shadow: var(--shadow); }
+.exam-ico { width: 46px; height: 46px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+.exam-info { flex: 1; }
+.exam-name { font-size: .95rem; font-weight: 800; }
+.exam-meta { display: flex; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
+.exam-arr { color: var(--ink3); font-size: 1.1rem; }
+
+.q-block {
+  background: var(--cream); border: 1.5px solid var(--border);
+  border-radius: 14px; padding: 14px; margin-bottom: 10px;
+}
+.q-num-badge {
+  width: 26px; height: 26px; border-radius: 8px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: .78rem; font-weight: 800;
+}
+.q-text { font-size: .88rem; color: var(--ink2); line-height: 1.65; }
+
+/* ══════════════════════════════════════════
+   SCHEDULE / REMINDERS
+══════════════════════════════════════════ */
+.tt-accordion {
+  background: var(--card); border: 1.5px solid var(--border);
+  border-radius: var(--r); margin-bottom: 8px; overflow: hidden;
+}
+.tt-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 16px; cursor: pointer; background: var(--card);
+  transition: background .15s; user-select: none;
+}
+.tt-head:hover { background: var(--cream2); }
+.tt-head h4 { font-size: .9rem; font-weight: 800; }
+.tt-head .tt-chevron { color: var(--ink3); font-size: .8rem; transition: transform .2s; }
+.tt-accordion.open .tt-head { background: var(--cream2); }
+.tt-accordion.open .tt-chevron { transform: rotate(180deg); }
+.tt-body { display: none; padding: 8px 16px 14px; border-top: 1px solid var(--border); }
+.tt-accordion.open .tt-body { display: block; }
+.tt-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 0; border-bottom: 1px solid var(--border);
+}
+.tt-row:last-child { border: none; }
+.tt-time { font-size: .78rem; font-weight: 700; color: var(--blue); width: 46px; font-family: 'JetBrains Mono', monospace; }
+.tt-sub  { font-size: .86rem; flex: 1; }
+.tt-dur  { font-size: .73rem; color: var(--ink3); }
+
+.r-item {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--card); border: 1.5px solid var(--border);
+  border-right: 4px solid var(--gold);
+  border-radius: var(--r); padding: 12px 14px;
+  margin-bottom: 8px; transition: all .2s;
+}
+.r-item.done { border-right-color: var(--green); opacity: .7; }
+.r-item:hover { box-shadow: var(--shadow); }
+.r-info { flex: 1; }
+.r-name { font-size: .9rem; font-weight: 700; }
+.r-dt   { font-size: .75rem; color: var(--ink3); margin-top: 2px; }
+.del-btn { background: none; border: none; cursor: pointer; color: var(--ink3); font-size: .9rem; padding: 3px; transition: color .2s; }
+.del-btn:hover { color: var(--rose); }
+
+/* ══════════════════════════════════════════
+   MUSIC
+══════════════════════════════════════════ */
+.np-card {
+  background: var(--ink); border-radius: 20px;
+  padding: 22px; margin-bottom: 16px; text-align: center;
+  position: relative; overflow: hidden;
+}
+.np-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 50% 100%, #2B4ECC44, transparent);
+}
+.np-disk {
+  width: 72px; height: 72px; border-radius: 50%;
+  margin: 0 auto 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem; position: relative; z-index: 1;
+  animation: spin-disk 8s linear infinite; animation-play-state: paused;
+}
+.np-disk.active { animation-play-state: running; }
+@keyframes spin-disk { to { transform: rotate(360deg); } }
+.np-name { color: #fff; font-size: 1rem; font-weight: 800; position: relative; z-index: 1; }
+.np-sub  { color: rgba(255,255,255,.55); font-size: .78rem; margin-top: 3px; position: relative; z-index: 1; }
+
+.music-tile {
+  display: flex; align-items: center; gap: 13px;
+  background: var(--card); border: 1.5px solid var(--border);
+  border-radius: var(--r); padding: 14px 16px;
+  margin-bottom: 10px; cursor: pointer; transition: all .22s;
+}
+.music-tile:hover { transform: translateX(-3px); box-shadow: var(--shadow); }
+.music-tile.playing { border-color: var(--ink); background: var(--cream2); }
+.m-ico { width: 46px; height: 46px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+.m-info { flex: 1; }
+.m-name { font-size: .92rem; font-weight: 800; }
+.m-sub  { font-size: .75rem; color: var(--ink3); margin-top: 2px; }
+.m-play { font-size: 1.4rem; color: var(--ink3); transition: color .2s; }
+.music-tile:hover .m-play { color: var(--ink); }
+.music-tile.playing .m-play { color: var(--blue); }
+
+/* ══════════════════════════════════════════
+   TIMER
+══════════════════════════════════════════ */
+.timer-tabs-row {
+  display: flex; gap: 6px;
+  background: var(--cream2); border-radius: 13px; padding: 4px;
+  margin-bottom: 16px;
+}
+.t-tab {
+  flex: 1; padding: 9px; border-radius: 10px;
+  background: transparent; border: none;
+  color: var(--ink3); font-weight: 800; font-size: .83rem;
+  cursor: pointer; font-family: 'Tajawal', sans-serif; transition: all .2s;
+}
+.t-tab.active { background: var(--card); color: var(--ink); box-shadow: var(--shadow); }
+
+.timer-face {
+  background: var(--ink); border-radius: 22px;
+  padding: 30px 20px 22px; text-align: center; margin-bottom: 14px;
+  position: relative; overflow: hidden;
+}
+.timer-face::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, #2B4ECC33, transparent);
+}
+.timer-digits {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 3.2rem; font-weight: 700;
+  color: #fff; letter-spacing: 3px;
+  position: relative; z-index: 1;
+}
+.timer-label { color: rgba(255,255,255,.4); font-size: .75rem; margin-top: 4px; position: relative; z-index: 1; }
+
+.ring-wrap { display: flex; justify-content: center; margin-bottom: 14px; }
+.ring-wrap svg { transform: rotate(-90deg); }
+.r-bg   { fill: none; stroke: var(--border); stroke-width: 9; }
+.r-fill { fill: none; stroke-width: 9; stroke-linecap: round; transition: stroke-dashoffset .6s ease; }
+
+.ctrl-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.ctrl {
+  display: flex; align-items: center; gap: 6px;
+  padding: 10px 20px; border-radius: var(--r-sm);
+  font-weight: 800; font-size: .85rem;
+  border: none; cursor: pointer; font-family: 'Tajawal', sans-serif; transition: all .18s;
+}
+.ctrl:hover { transform: translateY(-2px); }
+.ctrl.play  { background: var(--green); color: #fff; }
+.ctrl.pause { background: var(--rose); color: #fff; }
+.ctrl.stop  { background: var(--cream2); color: var(--ink2); border: 1.5px solid var(--border); }
+.ctrl.lap   { background: var(--teal); color: #fff; }
+.ctrl.reset { background: var(--cream2); color: var(--ink2); border: 1.5px solid var(--border); }
+
+.preset-wrap { display: flex; gap: 7px; flex-wrap: wrap; justify-content: center; margin-bottom: 12px; }
+.preset {
+  padding: 7px 13px; border-radius: 20px;
+  background: var(--cream2); border: 1.5px solid var(--border);
+  color: var(--ink2); font-weight: 700; font-size: .78rem;
+  cursor: pointer; font-family: 'Tajawal', sans-serif; transition: all .18s;
+}
+.preset:hover { border-color: var(--gold); color: var(--gold); background: #FFF5E0; }
+
+.ct-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 14px; }
+.ct-inp {
+  width: 76px; text-align: center;
+  background: var(--cream2); border: 1.5px solid var(--border);
+  border-radius: var(--r-sm); padding: 11px 6px;
+  color: var(--ink); font-size: 1.15rem; font-family: 'JetBrains Mono', monospace;
+  font-weight: 700; outline: none; transition: border-color .2s;
+}
+.ct-inp:focus { border-color: var(--gold); box-shadow: 0 0 0 3px #C8860A1A; }
+.colon { font-size: 1.6rem; font-weight: 900; color: var(--ink3); }
+
+.lap-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 10px; border-radius: 9px; background: var(--cream2);
+  margin-bottom: 4px;
+}
+.lap-n { font-size: .75rem; font-weight: 800; color: var(--teal); width: 18px; }
+.lap-t { font-size: .84rem; font-family: 'JetBrains Mono', monospace; flex: 1; }
+.laps-box { max-height: 140px; overflow-y: auto; }
+
+/* ══════════════════════════════════════════
+   NOTES
+══════════════════════════════════════════ */
+.note-card {
+  background: var(--card); border: 1.5px solid var(--border);
+  border-radius: var(--r); padding: 16px;
+  margin-bottom: 10px; border-right: 4px solid transparent;
+  transition: transform .2s, box-shadow .2s;
+}
+.note-card:hover { transform: translateX(-2px); box-shadow: var(--shadow); }
+.note-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.note-title  { font-size: .92rem; font-weight: 800; }
+.note-date   { font-size: .7rem; color: var(--ink3); }
+.note-body   { font-size: .84rem; color: var(--ink2); line-height: 1.65; }
+
+/* ══════════════════════════════════════════
+   MODAL
+══════════════════════════════════════════ */
+.overlay {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(28,31,46,.5);
+  display: none; align-items: flex-end; justify-content: center;
+  backdrop-filter: blur(6px);
+}
+.overlay.open { display: flex; }
+.modal {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 24px 24px 0 0; padding: 24px 22px 32px;
+  width: 100%; max-width: 460px;
+  animation: modal-up .25s ease;
+  max-height: 80vh; overflow-y: auto;
+}
+@keyframes modal-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.modal-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 16px; }
+.modal h3 { font-size: 1rem; font-weight: 800; margin-bottom: 14px; }
+
+/* ══════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════ */
+#toast-wrap {
+  position: fixed; top: 62px; left: 50%; transform: translateX(-50%);
+  z-index: 900; display: flex; flex-direction: column; gap: 6px;
+  pointer-events: none; min-width: 260px;
+}
+.toast {
+  padding: 11px 20px; border-radius: 12px;
+  font-size: .85rem; font-weight: 700; text-align: center;
+  box-shadow: var(--shadow-md);
+  animation: t-in .3s ease, t-out .3s ease 2.7s forwards;
+}
+@keyframes t-in  { from { transform: translateY(-8px); opacity: 0; } to { opacity: 1; transform: none; } }
+@keyframes t-out { to   { opacity: 0; } }
+.toast.ok   { background: var(--ink); color: #fff; }
+.toast.err  { background: var(--rose); color: #fff; }
+.toast.warn { background: var(--gold); color: #fff; }
+.toast.info { background: var(--blue); color: #fff; }
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media (min-width: 480px) {
+  .icon-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ══════════════════════════════════════════
+   TIMETABLE TABLE VIEW
+══════════════════════════════════════════ */
+.tt-view-toggle {
+  display: flex; gap: 6px;
+  background: var(--cream2); border-radius: 13px; padding: 4px;
+  margin-bottom: 14px;
+}
+.tt-view-btn {
+  flex: 1; padding: 8px; border-radius: 10px;
+  background: transparent; border: none;
+  color: var(--ink3); font-weight: 800; font-size: .82rem;
+  cursor: pointer; font-family: 'Tajawal', sans-serif; transition: all .2s;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+}
+.tt-view-btn.active { background: var(--card); color: var(--ink); box-shadow: var(--shadow); }
+
+.tt-table-wrap { overflow-x: auto; margin-bottom: 14px; border-radius: var(--r); border: 1.5px solid var(--border); }
+.tt-table {
+  width: 100%; border-collapse: collapse;
+  font-size: .82rem; min-width: 340px;
+}
+.tt-table thead tr { background: var(--ink); }
+.tt-table thead th {
+  color: #fff; padding: 10px 8px; font-weight: 800; text-align: center;
+  font-size: .78rem; white-space: nowrap;
+}
+.tt-table thead th:first-child { border-radius: 0; }
+.tt-table tbody tr:nth-child(even) { background: var(--cream2); }
+.tt-table tbody tr:nth-child(odd)  { background: var(--card); }
+.tt-table tbody tr.tt-today-row { background: var(--blue-bg) !important; }
+.tt-table tbody td {
+  padding: 9px 8px; text-align: center; border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.tt-table tbody td:first-child { font-weight: 800; color: var(--ink2); font-size: .78rem; white-space: nowrap; }
+.tt-table .slot-cell {
+  background: var(--card); border-radius: 8px; padding: 5px 7px;
+  display: inline-block; min-width: 60px;
+}
+.tt-table .slot-cell .sc-name { font-weight: 700; color: var(--ink); font-size: .78rem; }
+.tt-table .slot-cell .sc-time { color: var(--blue); font-size: .7rem; font-family: 'JetBrains Mono', monospace; }
+.tt-table .slot-cell .sc-dur  { color: var(--ink3); font-size: .65rem; }
+.tt-table .empty-cell { color: var(--ink3); font-size: .72rem; }
+
+/* TIMETABLE EDITOR  */
+.tt-editor-card {
+  background: var(--card); border: 1.5px solid var(--border);
+  border-radius: var(--r); margin-bottom: 10px; overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: box-shadow .2s;
+}
+.tt-editor-card.open { box-shadow: var(--shadow-md); }
+
+.tt-day-hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 16px; cursor: pointer;
+  background: var(--card2); user-select: none;
+  transition: background .15s;
+}
+.tt-day-hdr:hover { background: var(--cream3); }
+.tt-day-hdr.is-today { background: #EEF1FF; }
+.tt-day-hdr .day-left { display: flex; align-items: center; gap: 8px; }
+.tt-day-hdr h4 { font-size: .92rem; font-weight: 800; }
+.today-dot { width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;flex-shrink:0; }
+.today-pill {
+  font-size:.67rem; font-weight:800; padding:2px 8px; border-radius:10px;
+  background:#2B4ECC22; color:var(--blue); border:1px solid #2B4ECC44;
+}
+.tt-day-hdr .day-right { display:flex;align-items:center;gap:8px; }
+.slot-count {
+  font-size:.72rem; color:var(--ink3); font-weight:600;
+  background:var(--cream); border:1px solid var(--border);
+  border-radius:10px; padding:2px 9px;
+}
+.tt-chevron { font-size:.75rem; color:var(--ink3); transition:transform .22s; }
+.tt-editor-card.open .tt-chevron { transform:rotate(180deg); }
+.tt-day-body { display:none; border-top:1px solid var(--border); }
+.tt-editor-card.open .tt-day-body { display:block; }
+.tt-slots-list { padding:10px 14px 4px; }
+
+/* each slot row */
+.tt-slot-row {
+  display:flex; align-items:center; gap:8px;
+  padding:9px 12px; border-radius:11px;
+  background:var(--cream); border:1.5px solid var(--border);
+  margin-bottom:7px; transition:all .15s;
+}
+.tt-slot-row:hover { border-color:var(--blue); background:#EEF1FF88; }
+.sl-time {
+  font-family:'JetBrains Mono',monospace;
+  font-size:.82rem; font-weight:700; color:var(--blue);
+  min-width:48px; flex-shrink:0;
+}
+.sl-name { flex:1; font-size:.88rem; font-weight:600; color:var(--ink); }
+.sl-dur  { font-size:.75rem; color:var(--ink3); flex-shrink:0; min-width:28px; text-align:center; }
+.sl-actions { display:flex; gap:4px; flex-shrink:0; }
+.sl-btn {
+  width:30px;height:30px;border-radius:9px;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.8rem; transition:all .15s;
+}
+.sl-btn.edit { background:#EEF1FF; color:var(--blue); }
+.sl-btn.edit:hover { background:var(--blue); color:#fff; }
+.sl-btn.del  { background:#FFEBEF; color:var(--rose); }
+.sl-btn.del:hover  { background:var(--rose); color:#fff; }
+.no-slots { text-align:center; padding:14px; color:var(--ink3); font-size:.82rem; }
+
+/* inline add form */
+.tt-add-panel {
+  margin:0 14px 12px; display:none;
+  background:var(--cream2); border:1.5px dashed var(--border);
+  border-radius:12px; padding:12px; animation:page-in .2s ease;
+}
+.tt-add-panel.show { display:block; }
+.tt-add-row { display:flex; gap:8px; margin-bottom:8px; flex-wrap:wrap; }
+.tt-inp {
+  flex:1; min-width:80px;
+  background:var(--cream); border:1.5px solid var(--border);
+  border-radius:9px; padding:9px 12px;
+  font-size:.84rem; color:var(--ink);
+  font-family:'Tajawal',sans-serif; outline:none;
+  transition:border-color .2s, box-shadow .2s;
+}
+.tt-inp:focus { border-color:var(--blue); box-shadow:0 0 0 2px #2B4ECC1A; }
+.tt-inp::placeholder { color:var(--ink3); }
+.tt-inp.small { max-width:110px; }
+.tt-form-btns { display:flex; gap:8px; }
+.tt-save-btn {
+  flex:1; padding:9px; border-radius:9px; border:none; cursor:pointer;
+  background:var(--ink); color:#fff;
+  font-weight:800; font-size:.84rem; font-family:'Tajawal',sans-serif;
+  transition:all .2s;
+}
+.tt-save-btn:hover { background:var(--blue); }
+.tt-cancel-btn {
+  padding:9px 14px; border-radius:9px; cursor:pointer;
+  background:transparent; color:var(--ink3);
+  border:1.5px solid var(--border); font-size:.84rem;
+  font-family:'Tajawal',sans-serif; transition:all .2s;
+}
+.tt-cancel-btn:hover { border-color:var(--rose); color:var(--rose); }
+
+/* ＋ add row button */
+.tt-addrow-btn {
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  width:100%; padding:9px 14px 12px;
+  background:none; border:none; cursor:pointer;
+  color:var(--ink3); font-size:.82rem; font-weight:700;
+  font-family:'Tajawal',sans-serif; transition:color .2s;
+}
+.tt-addrow-btn:hover { color:var(--blue); }
+.tt-addrow-btn svg { transition:transform .2s; }
+.tt-addrow-btn:hover svg { transform:rotate(90deg); }
+
+/* EDIT MODAL */
+.edit-overlay {
+  position:fixed;inset:0;z-index:700;
+  background:rgba(28,31,46,.55);backdrop-filter:blur(5px);
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.edit-overlay.open { display:flex; }
+.edit-modal {
+  background:var(--card); border:1.5px solid var(--border);
+  border-radius:20px; padding:24px; width:100%; max-width:360px;
+  box-shadow:var(--shadow-lg); animation:page-in .22s ease;
+}
+.edit-modal h3 { font-size:1rem; font-weight:800; margin-bottom:16px; color:var(--ink); }
+.em-field { margin-bottom:10px; }
+.em-label { font-size:.78rem;color:var(--ink3);font-weight:700;display:block;margin-bottom:4px; }
+.em-inp {
+  width:100%; background:var(--cream); border:1.5px solid var(--border);
+  border-radius:10px; padding:10px 13px;
+  font-size:.9rem; color:var(--ink); font-family:'Tajawal',sans-serif;
+  outline:none; transition:border-color .2s;
+}
+.em-inp:focus { border-color:var(--blue); box-shadow:0 0 0 3px #2B4ECC1A; }
+.em-actions { display:flex; gap:8px; margin-top:14px; }
+.em-save {
+  flex:1; padding:11px; border-radius:10px; border:none; cursor:pointer;
+  background:var(--ink); color:#fff; font-weight:800; font-size:.9rem;
+  font-family:'Tajawal',sans-serif; transition:all .2s;
+}
+.em-save:hover { background:var(--blue); transform:translateY(-1px); }
+.em-cancel {
+  padding:11px 16px; border-radius:10px; cursor:pointer;
+  background:transparent; color:var(--ink3);
+  border:1.5px solid var(--border); font-size:.9rem;
+  font-family:'Tajawal',sans-serif; transition:all .2s;
+}
+.em-cancel:hover { border-color:var(--rose); color:var(--rose); }
+
+/* ══════════════════════════════════════════
+   SETTINGS PAGE
+══════════════════════════════════════════ */
+.settings-section {
+  background: var(--card); border: 1.5px solid var(--border);
+  border-radius: 18px; margin-bottom: 14px; overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.settings-section-title {
+  font-size: .72rem; font-weight: 800; color: var(--ink3);
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 14px 16px 6px;
+}
+
+/* social links */
+.social-links {
+  display: flex; gap: 12px; padding: 16px;
+}
+.social-btn {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 9px;
+  padding: 13px 10px; border-radius: 14px; border: none; cursor: pointer;
+  font-family: 'Tajawal', sans-serif; font-size: .88rem; font-weight: 800;
+  text-decoration: none; transition: transform .18s, box-shadow .18s, opacity .18s;
+}
+.social-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.15); }
+.social-btn:active { transform: scale(.97); }
+.social-btn-ig {
+  background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  color: #fff;
+}
+.social-btn-fb {
+  background: #1877F2; color: #fff;
+}
+.social-btn svg { flex-shrink: 0; }
+
+
+
+.settings-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 16px; border-bottom: 1px solid var(--border);
+  transition: background .15s;
+}
+.settings-row:last-child { border-bottom: none; }
+.settings-row:hover { background: var(--cream2); }
+.sr-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0;
+}
+.sr-info { flex: 1; }
+.sr-title { font-size: .9rem; font-weight: 700; color: var(--ink); }
+.sr-sub   { font-size: .75rem; color: var(--ink3); margin-top: 1px; }
+/* toggle switch */
+.toggle-wrap { position: relative; width: 46px; height: 26px; flex-shrink: 0; }
+.toggle-wrap input { opacity: 0; width: 0; height: 0; }
+.toggle-slider {
+  position: absolute; inset: 0;
+  background: var(--border); border-radius: 13px; cursor: pointer;
+  transition: background .2s;
+}
+.toggle-slider::before {
+  content: ''; position: absolute;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: #fff; top: 3px; right: 3px;
+  transition: transform .2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,.2);
+}
+.toggle-wrap input:checked + .toggle-slider { background: var(--blue); }
+.toggle-wrap input:checked + .toggle-slider::before { transform: translateX(-20px); }
+/* lang buttons */
+.lang-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+.lang-btn {
+  padding: 6px 13px; border-radius: 20px; font-size: .8rem; font-weight: 700;
+  border: 1.5px solid var(--border); background: transparent; cursor: pointer;
+  color: var(--ink2); font-family: inherit; transition: all .18s;
+}
+.lang-btn:hover { border-color: var(--blue); color: var(--blue); }
+.lang-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+/* danger zone */
+.danger-btn {
+  width: 100%; padding: 12px; border-radius: 12px; border: none; cursor: pointer;
+  background: #FFEBEF; color: var(--rose); font-weight: 800; font-size: .88rem;
+  font-family: inherit; transition: all .2s; margin-bottom: 8px;
+  border: 1.5px solid #FFCCD6;
+}
+.danger-btn:hover { background: var(--rose); color: #fff; }
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- ════════════════════════════════════════
+     AUTH
+════════════════════════════════════════ -->
+<div id="auth-screen">
+  <div class="auth-wrap">
+    <div class="auth-logo">
+      <div class="auth-logo-icon">
+        <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22 6L4 15l18 9 18-9L22 6Z" stroke="#fff" stroke-width="2.2" stroke-linejoin="round" fill="none"/>
+          <path d="M4 15v14M40 15v14" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M10 18v10a12 6 0 0 0 24 0V18" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <h1>Sal<em>mi</em></h1>
+      <p> !!welcome </p>
+    </div>
+    <div class="auth-card">
+      <h2 id="auth-heading">Log in </h2>
+      <div class="f-group">
+        <label>Username  </label>
+        <div class="f-wrap">
+          <span class="fi">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          </span>
+          <input type="text" id="a-user" placeholder="Enter your username">
+        </div>
+      </div>
+      <div class="f-group">
+        <label>Password  </label>
+        <div class="f-wrap">
+          <span class="fi">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          </span>
+          <input type="password" id="a-pass" placeholder="Enter your password">
+          <button class="eye-btn" onclick="toggleEye()">👁</button>
+        </div>
+      </div>
+      <div class="auth-msg" id="auth-msg"></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:0 2px">
+        <input type="checkbox" id="remember-me" style="width:16px;height:16px;accent-color:var(--blue);cursor:pointer">
+        <label for="remember-me" style="font-size:.82rem;color:var(--ink2);font-weight:600;cursor:pointer" id="remember-lbl">save my data </label>
+      </div>
+      <button class="btn-main" onclick="authSubmit()">
+        <svg width="16" height="16" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        <span id="auth-btn-lbl">Log in</span>
+      </button>
+      <button class="link-btn" onclick="toggleAuthMode()" id="auth-switch"> you Don't have an account? Create one!</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     MAIN APP
+════════════════════════════════════════ -->
+<div id="main-app">
+  <!-- topbar -->
+    <!-- TOPBAR -->
+    <div class="topbar" id="topbar">
+      <!-- Left: back btn -->
+      <div class="tb-left">
+        <button class="tb-btn" id="tb-back" onclick="goHome()" title="رجوع / Back">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+      </div>
+      <!-- Center: logo + title -->
+      <div class="tb-center">
+        <div class="topbar-logo">
+          <div class="topbar-logo-icon">
+            <svg viewBox="0 0 44 44" fill="none"><path d="M22 6L4 15l18 9 18-9L22 6Z" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"/><path d="M4 15v14M40 15v14" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><path d="M10 18v10a12 6 0 0 0 24 0V18" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
+          </div>
+          <h1 id="topbar-title">Salmi</h1>
+        </div>
+      </div>
+      <!-- Right: notif + settings -->
+      <div class="tb-right">
+        <button class="tb-btn notif-btn" onclick="openNotifModal()" title="التذكيرات">
+          <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="n-badge" id="n-badge"></span>
+        </button>
+        <button class="tb-btn" onclick="openPage('settings')" title="الإعدادات">
+          <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+      </div>
+    </div>
+
+  <!-- breadcrumb -->
+  <div class="breadcrumb" id="breadcrumb">
+    <button class="bc-back" onclick="goHome()">
+      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      <span id="bc-home-lbl">الرئيسية</span>
+    </button>
+    <span class="bc-sep">›</span>
+    <span class="bc-cur" id="bc-label"></span>
+  </div>
+
+  <div class="main-content" id="main-content">
+    <!-- HOME -->
+    <div id="home-screen">
+      <div class="home-header">
+        <div class="home-greeting" id="home-greeting" data-i18n="home_greeting">أهلاً،</div>
+        <div class="home-name" id="home-name">مستخدم</div>
+        <div class="home-date" id="home-date"></div>
+      </div>
+
+      <!-- quick access strip -->
+      <div class="quick-strip" id="quick-strip">
+        <button class="qs-item" onclick="openPage('exams')"><span class="qs-icon">📄</span> نماذج الامتحانات</button>
+        <button class="qs-item" onclick="openPage('timetable')"><span class="qs-icon">🗓️</span> استعمال الزمن</button>
+        <button class="qs-item" onclick="openPage('schedule')"><span class="qs-icon">⏰</span> تذكير مراجعة</button>
+        <button class="qs-item" onclick="openPage('timer')"><span class="qs-icon">⏱</span> الكرونومتر</button>
+        <button class="qs-item" onclick="openPage('notes')"><span class="qs-icon">📝</span> ملاحظاتي</button>
+        <button class="qs-item" onclick="openPage('music')"><span class="qs-icon">🎵</span> موسيقى</button>
+      </div>
+
+      <!-- icon grid -->
+      <div class="icon-grid" id="icon-grid">
+
+        <div class="tile tile-blue" onclick="openPage('exams')">
+          <div class="tile-badge" id="badge-exams"></div>
+          <div class="tile-icon-wrap">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--blue)">
+              <rect x="7" y="4" width="22" height="30" rx="3" stroke="currentColor" stroke-width="2.2"/>
+              <path d="M12 13h12M12 19h12M12 25h7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+              <circle cx="30" cy="30" r="7" fill="var(--tcl)" stroke="currentColor" stroke-width="2"/>
+              <path d="M27.5 30l2 2 3-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="tile-label">نماذج الامتحانات</div>
+          
+        </div>
+
+        <div class="tile tile-gold" onclick="openPage('timetable')">
+          <div class="tile-icon-wrap">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--gold)">
+              <rect x="5" y="8" width="30" height="26" rx="4" stroke="currentColor" stroke-width="2.2"/>
+              <path d="M5 15h30" stroke="currentColor" stroke-width="2.2"/>
+              <path d="M13 5v6M27 5v6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M11 22h7M11 28h5M21 22h7M21 28h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="31" cy="11" r="4" fill="var(--tcl)" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M29.5 11l1.2 1.2 2.2-2.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="tile-label">استعمال الزمن</div>
+          
+        </div>
+
+        <div class="tile tile-teal" onclick="openPage('music')">
+          <div class="tile-icon-wrap">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--teal)">
+              <path d="M14 32V12l20-4v20" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="10" cy="32" r="4" stroke="currentColor" stroke-width="2.2"/>
+              <circle cx="30" cy="28" r="4" stroke="currentColor" stroke-width="2.2"/>
+              <path d="M7 26V10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="tile-label">موسيقى والقرآن</div>
+          
+        </div>
+
+        <div class="tile tile-rose" onclick="openPage('timer')">
+          <div class="tile-icon-wrap">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--rose)">
+              <circle cx="20" cy="22" r="13" stroke="currentColor" stroke-width="2.2"/>
+              <path d="M20 12v5l4 3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15 5h10M20 5v4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M10 8l2 2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="tile-label">مؤقت</div>
+          
+        </div>
+
+        <div class="tile tile-violet" onclick="openPage('notes')">
+          <div class="tile-icon-wrap">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--violet)">
+              <path d="M10 6h16l6 6v22H10V6Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+              <path d="M26 6v6h6" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+              <path d="M15 19h12M15 24h12M15 29h7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M26 18l2 2-6 6-2.5.5.5-2.5 6-6Z" fill="var(--tcl)" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="tile-label">ملاحظاتي</div>
+          
+        </div>
+
+        <div class="tile tile-green" onclick="openPage('quran')">
+          <div class="tile-icon-wrap">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--green)">
+              <!-- Mosque icon -->
+              <path d="M20 4c-1.5 0-3 1.2-3 3v1H11v3l-3 1v17h24V12l-3-1V8h-6V7c0-1.8-1.5-3-3-3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M17 8h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <!-- dome -->
+              <path d="M14 11c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="2"/>
+              <!-- door arch -->
+              <path d="M17 29v-7c0-1.7 1.3-3 3-3s3 1.3 3 3v7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <!-- windows -->
+              <rect x="10" y="17" width="5" height="5" rx="2.5" stroke="currentColor" stroke-width="1.8"/>
+              <rect x="25" y="17" width="5" height="5" rx="2.5" stroke="currentColor" stroke-width="1.8"/>
+              <!-- minaret left -->
+              <rect x="6" y="10" width="3" height="19" rx="1" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M7.5 10c0-2 1-3 1-3s1 1 1 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <!-- minaret right -->
+              <rect x="31" y="10" width="3" height="19" rx="1" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M32.5 10c0-2 1-3 1-3s1 1 1 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="tile-label" data-i18n="quran">سماع القرآن</div>
+          
+        </div>
+
+        <div class="tile tile-green" onclick="openPage('schedule')">
+          <div class="tile-badge" id="badge-remind"></div>
+          <div class="tile-icon-wrap">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--green)">
+              <circle cx="20" cy="22" r="13" stroke="currentColor" stroke-width="2.2"/>
+              <path d="M20 13v9l5 3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15 5h10M20 5v4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="tile-label" id="tile-label-schedule">تذكيرات المراجعة</div>
+          
+        </div>
+
+      </div><!-- /icon-grid -->
+    </div><!-- /home-screen -->
+
+    <!-- INNER PAGES -->
+    <div id="inner-pages">
+      <div id="page-exams"      class="inner-page"></div>
+      <div id="page-schedule"   class="inner-page"></div>
+      <div id="page-timetable"  class="inner-page"></div>
+      <div id="page-music"      class="inner-page"></div>
+      <div id="page-timer"      class="inner-page"></div>
+      <div id="page-notes"      class="inner-page"></div>
+      <div id="page-quran"      class="inner-page"></div>
+      <div id="page-settings"   class="inner-page"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Notif modal -->
+<div class="overlay" id="notif-overlay">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h3>🔔 التذكيرات القادمة</h3>
+    <div id="notif-list"></div>
+    <button class="btn btn-outline btn-full btn-sm" style="margin-top:12px" onclick="closeModal()">إغلاق</button>
+  </div>
+</div>
+
+<!-- Edit slot modal -->
+<div class="edit-overlay" id="edit-overlay">
+  <div class="edit-modal">
+    <h3>✏️ تعديل الحصة</h3>
+    <div class="em-field">
+      <label class="em-label">الوقت</label>
+      <input class="em-inp" id="em-time" placeholder="مثال: 08:00" type="time">
+    </div>
+    <div class="em-field">
+      <label class="em-label">اسم المادة أو النشاط</label>
+      <input class="em-inp" id="em-name" placeholder="مثال: الرياضيات">
+    </div>
+    <div class="em-field">
+      <label class="em-label">المدة</label>
+      <input class="em-inp" id="em-dur" placeholder="مثال: 2س أو 1:30">
+    </div>
+    <div class="em-actions">
+      <button class="em-save"   onclick="saveEditSlot()">💾 حفظ التعديل</button>
+      <button class="em-cancel" onclick="closeEditModal()">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-wrap"></div>
+</div><!-- /app -->
+
+<script>
+// ════════════════════════════════════════════════════
+//  STORAGE
+// ════════════════════════════════════════════════════
+const S = {
+  get: (k, d={}) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
+  set: (k,v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+};
+let CU = null; // current user
+
+// ════════════════════════════════════════════════════
+//  AUTH
+// ════════════════════════════════════════════════════
+let authMode = 'login';
+
+// ── Auto-fill remembered credentials on load ──
+(function loadRemembered() {
+  const saved = S.get('remembered_user', null);
+  if (saved && saved.u) {
+    document.getElementById('a-user').value = saved.u;
+    document.getElementById('a-pass').value = saved.p || '';
+    document.getElementById('remember-me').checked = true;
+  }
+})();
+
+function toggleEye() {
+  const p = document.getElementById('a-pass');
+  p.type = p.type==='password' ? 'text' : 'password';
+}
+function toggleAuthMode() {
+  authMode = authMode==='login' ? 'signup' : 'login';
+  const s = authMode==='signup';
+  document.getElementById('auth-heading').textContent = s ? 'Create a new account' : 'Log in';
+  document.getElementById('auth-btn-lbl').textContent = s ? 'Create account' : 'Log in';
+  document.getElementById('auth-switch').textContent = s ? 'Already have an account? Log in' : 'Don\'t have an account? Create one!';
+  const rmRow = document.getElementById('remember-me')?.closest('div');
+  if(rmRow) rmRow.style.display = s ? 'none' : 'flex';
+  setMsg('');
+}
+function setMsg(t, cls='') {
+  const el = document.getElementById('auth-msg');
+  el.textContent = t; el.className = `auth-msg ${cls}`;
+}
+function authSubmit() {
+  const u = document.getElementById('a-user').value.trim();
+  const p = document.getElementById('a-pass').value.trim();
+  if (!u||!p) { setMsg('Please fill in all fields','err'); return; }
+  const users = S.get('users', {});
+  if (authMode==='signup') {
+    if (users[u]) { setMsg('The username is taken.','err'); return; }
+    users[u] = { pw: p, joined: Date.now() };
+    S.set('users', users);
+    setMsg('✅ Account created! Please log in.','ok');
+    toggleAuthMode();
+  } else {
+    if (!users[u] || users[u].pw !== p) { setMsg('❌ Invalid credentials','err'); return; }
+    // handle remember me
+    const rememberMe = document.getElementById('remember-me').checked;
+    if (rememberMe) {
+      S.set('remembered_user', { u, p });
+    } else {
+      S.set('remembered_user', null);
+    }
+    CU = u; startApp();
+  }
+}
+document.getElementById('a-pass').addEventListener('keydown', e => { if(e.key==='Enter') authSubmit(); });
+document.getElementById('a-user').addEventListener('keydown', e => { if(e.key==='Enter') authSubmit(); });
+
+function startApp() {
+  document.getElementById('auth-screen').style.display = 'none';
+  document.getElementById('main-app').style.display = 'flex';
+  // load prefs
+  const prefs = S.get(`prefs_${CU}`, {lang:'ar', dark:false});
+  applyLang(prefs.lang, false);
+  applyDark(prefs.dark, false);
+  refreshHomeHeader();
+  updateNotifBadge(); updateNoteCount();
+  startNotifDaemon();
+  if ('Notification' in window && Notification.permission==='default') Notification.requestPermission();
+}
+
+// ════════════════════════════════════════════════════
+//  I18N
+// ════════════════════════════════════════════════════
+const LANGS = {
+  ar: {
+    dir:'rtl', code:'ar',
+    home_greeting:'أهلاً,',
+    settings:'الإعدادات',
+    exams:'نماذج الامتحانات',
+    timetable:'استعمال الزمن',
+    schedule:'تذكيرات المراجعة',
+    music:'مسيقى هادئة',
+    timer:'مؤقت',
+    notes:'ملاحظاتي',
+    quran:'سماع القرآن',
+    quran_sub:' ',
+    back:'الرئيسية',
+    dark_mode:'الوضع المُظلم',
+    dark_sub:'تغيير مظهر التطبيق',
+    lang_label:'اللغة',
+    lang_sub:'اختر لغة التطبيق',
+    logout:'تسجيل الخروج',
+    reset_tt:'إعادة تعيين الجدول',
+    clear_data:'مسح جميع البيانات',
+    appearance:'المظهر',
+    language:'اللغة',
+    account:'الحساب',
+    version:'الإصدار',
+    app_version:'v5.0 — Salmi Study App',
+    notes_tile_sub:'دوّن أفكارك',
+    
+    
+    
+    exams_sub:'',
+    schedule_tile:'الجدول والتذكيرات',
+    schedule_sub:' ',
+    // timer page
+    timer_page_title:'الكرونومتر والعداد',
+    timer_page_sub:'راقب وقتك وزِد إنتاجيتك',
+    sw_tab:'⏱ ساعة الإيقاف',
+    ct_tab:'⏳ العداد التنازلي',
+    sw_start:'▶ ابدأ', sw_stop:'⏸ وقف', sw_reset:'↺ إعادة', sw_lap:'🏁 دورة',
+    ct_start:'▶ ابدأ', ct_stop:'⏸ وقف', ct_reset:'↺ إعادة',
+    lbl_hr:'ساعات', lbl_min:'دقائق', lbl_sec:'ثواني',
+    ct_ready:'جاهز', ct_running:'⏳ يعمل...', ct_paused:'⏸ متوقف', ct_done:'🎉 انتهى!',
+    laps_title:'الدورات', no_laps:'لا توجد دورات مسجلة',
+    // notes page
+    notes_page_title:'ملاحظاتي الدراسية',
+    notes_page_sub:'دوّن أهم النقاط والأفكار',
+    add_note:'إضافة ملاحظة',
+    note_title_ph:'📌 عنوان الملاحظة',
+    note_body_ph:'اكتب ملاحظتك هنا...',
+    save_note:'حفظ الملاحظة',
+    my_notes:'ملاحظاتي',
+    no_notes:'لا توجد ملاحظات بعد',
+    note_added:'✅ تمت الإضافة!',
+    note_fill:'⚠️ يرجى ملء العنوان والمحتوى',
+    // schedule page
+    schedule_page_title:'تذكيرات المراجعة',
+    schedule_page_sub:'سيُرسَل لك إشعار في الوقت المحدد',
+    add_reminder:'إضافة تذكير جديد',
+    lesson_ph:'🎯 اسم الدرس أو الموضوع',
+    add_btn:'إضافة تذكير',
+    saved_reminders:'التذكيرات المحفوظة',
+    no_reminders:'لا توجد تذكيرات بعد',
+    fill_fields:'⚠️ يرجى ملء جميع الحقول',
+    future_time:'❌ الوقت يجب أن يكون في المستقبل',
+    reminder_added:'✅ تمت الإضافة:',
+    // timetable
+    tt_page_title:'استعمال الزمن',
+    tt_page_sub:'حصة دراسية • اضغط اليوم لتعديله',
+    tt_today:'اليوم',
+    tt_sessions:'حصة',
+    tt_no_slots:'لا توجد حصص — اضغط ＋ إضافة حصة أدناه',
+    tt_add_slot:'إضافة حصة',
+    tt_save_slot:'✅ حفظ الحصة',
+    tt_cancel:'إلغاء',
+    tt_time_ph:'الوقت',
+    tt_name_ph:'اسم المادة أو النشاط ✱',
+    tt_dur_ph:'المدة مثال: 2س',
+    tt_edit_title:'✏️ تعديل الحصة',
+    tt_edit_time:'الوقت',
+    tt_edit_name:'اسم المادة أو النشاط',
+    tt_edit_dur:'المدة',
+    tt_save_edit:'💾 حفظ التعديل',
+    tt_reset_btn:'↺ إعادة تعيين',
+    tt_hint:'✏️ تعديل • 🗑 حذف • ＋ إضافة حصة جديدة',
+    tt_view_cards:'بطاقات', tt_view_table:'جدول',
+    // music
+    music_page_title:'الموسيقى والصوت',
+    music_page_sub:'الصوت المناسب يرفع تركيزك',
+    music_now_playing:'لا يوجد تشغيل الآن',
+    music_choose:'اختر قناة من القائمة',
+    // exams
+    exams_page_back:'العودة',
+    exams_page_title:'نماذج الامتحانات',
+    exams_page_sub:'6 نماذج • اختر المادة',
+    quran_page_title:'سماع القرآن الكريم',
+    quran_page_sub:'تلاوات خاشعة لتهيئة الذهن للمذاكرة',
+    settings_sub:'v7.0 — Salmi',
+    // settings misc
+    data_cleared:'🗑 تم مسح البيانات',
+    confirm_logout:'هل تريد تسجيل الخروج؟',
+    confirm_clear:'سيتم حذف جميع بياناتك! هل تريد المتابعة؟',
+    confirm_reset_tt:'هل تريد إعادة تعيين الجدول للقيم الافتراضية؟',
+    // notif modal
+    no_upcoming:'لا توجد تذكيرات قادمة',
+    // remember me
+    remember_me:'تذكّر بياناتي',
+  },
+  fr: {
+    dir:'ltr', code:'fr',
+    home_greeting:'Bonjour,',
+    settings:'Paramètres',
+    exams:'Examens',
+    timetable:'Emploi du temps',
+    schedule:'Rappels',
+    music:'Musique & Son',
+    timer:'Chronomètre',
+    notes:'Mes Notes',
+    quran:'Écouter le Coran',
+    quran_sub:'Récitations',
+    back:'Accueil',
+    dark_mode:'Mode sombre',
+    dark_sub:'Changer l\'apparence',
+    lang_label:'Langue',
+    lang_sub:'Choisir la langue',
+    logout:'Déconnexion',
+    reset_tt:'Réinitialiser',
+    clear_data:'Effacer les données',
+    appearance:'Apparence',
+    language:'Langue',
+    account:'Compte',
+    version:'Version',
+    app_version:'v5.0 — Salmi Study App',
+    notes_tile_sub:'Notez vos idées',
+    schedule_tile:'Calendrier',
+    schedule_sub:'Rappels intelligents',
+    // timer page
+    timer_page_title:'Chronomètre & Minuteur',
+    timer_page_sub:'Gérez votre temps, boostez votre productivité',
+    sw_tab:'⏱ Chronomètre',
+    ct_tab:'⏳ Compte à rebours',
+    sw_start:'▶ Démarrer', sw_stop:'⏸ Pause', sw_reset:'↺ Reset', sw_lap:'🏁 Tour',
+    ct_start:'▶ Démarrer', ct_stop:'⏸ Pause', ct_reset:'↺ Reset',
+    lbl_hr:'Heures', lbl_min:'Minutes', lbl_sec:'Secondes',
+    ct_ready:'Prêt', ct_running:'⏳ En cours...', ct_paused:'⏸ En pause', ct_done:'🎉 Terminé!',
+    laps_title:'Tours', no_laps:'Aucun tour enregistré',
+    // notes page
+    notes_page_title:'Mes Notes de Cours',
+    notes_page_sub:'Notez vos points clés et idées',
+    add_note:'Ajouter une note',
+    note_title_ph:'📌 Titre de la note',
+    note_body_ph:'Écrivez votre note ici...',
+    save_note:'Enregistrer',
+    my_notes:'Mes Notes',
+    no_notes:'Aucune note pour l\'instant',
+    note_added:'✅ Note ajoutée!',
+    note_fill:'⚠️ Veuillez remplir le titre et le contenu',
+    // schedule page
+    schedule_page_title:'Rappels d\'étude',
+    schedule_page_sub:'Vous recevrez une notification à l\'heure définie',
+    add_reminder:'Ajouter un rappel',
+    lesson_ph:'🎯 Nom de la leçon ou du sujet',
+    add_btn:'Ajouter le rappel',
+    saved_reminders:'Rappels enregistrés',
+    no_reminders:'Aucun rappel pour l\'instant',
+    fill_fields:'⚠️ Veuillez remplir tous les champs',
+    future_time:'❌ L\'heure doit être dans le futur',
+    reminder_added:'✅ Ajouté:',
+    // timetable
+    tt_page_title:'Emploi du temps',
+    tt_page_sub:'séances • touchez un jour pour modifier',
+    tt_today:'Aujourd\'hui',
+    tt_sessions:'séances',
+    tt_no_slots:'Aucune séance — appuyez ＋ Ajouter ci-dessous',
+    tt_add_slot:'Ajouter une séance',
+    tt_save_slot:'✅ Enregistrer',
+    tt_cancel:'Annuler',
+    tt_time_ph:'Heure',
+    tt_name_ph:'Matière ou activité ✱',
+    tt_dur_ph:'Durée ex: 2h',
+    tt_edit_title:'✏️ Modifier la séance',
+    tt_edit_time:'Heure',
+    tt_edit_name:'Matière ou activité',
+    tt_edit_dur:'Durée',
+    tt_save_edit:'💾 Enregistrer',
+    tt_reset_btn:'↺ Réinitialiser',
+    tt_hint:'✏️ Modifier • 🗑 Supprimer • ＋ Ajouter',
+    tt_view_cards:'Cartes', tt_view_table:'Tableau',
+    // music
+    music_page_title:'Musique & Audio',
+    music_page_sub:'Le bon son booste votre concentration',
+    music_now_playing:'Rien en lecture',
+    music_choose:'Choisir une station',
+    // exams
+    exams_page_back:'Retour',
+    exams_page_title:'Examens',
+    exams_page_sub:'6 sujets • choisir la matière',
+    quran_page_title:'Écouter le Coran',
+    quran_page_sub:'Récitations pour préparer l\'esprit à l\'étude',
+    settings_sub:'v7.0 — Salmi',
+    // settings misc
+    data_cleared:'🗑 Données effacées',
+    confirm_logout:'Voulez-vous vous déconnecter?',
+    confirm_clear:'Toutes vos données seront supprimées. Continuer?',
+    confirm_reset_tt:'Réinitialiser l\'emploi du temps?',
+    // notif modal
+    no_upcoming:'Aucun rappel à venir',
+    // remember me
+    remember_me:'Se souvenir de moi',
+  },
+  en: {
+    dir:'ltr', code:'en',
+    home_greeting:'Hello,',
+    settings:'Settings',
+    exams:'Exam Samples',
+    timetable:'Timetable',
+    schedule:'Study Reminders',
+    music:'Music & Audio',
+    timer:'Stopwatch',
+    notes:'My Notes',
+    quran:'Listen to Quran',
+    quran_sub:'Sacred recitations',
+    back:'Home',
+    dark_mode:'Dark Mode',
+    dark_sub:'Switch app theme',
+    lang_label:'Language',
+    lang_sub:'Choose app language',
+    logout:'Log out',
+    reset_tt:'Reset timetable',
+    clear_data:'Clear all data',
+    appearance:'Appearance',
+    language:'Language',
+    account:'Account',
+    version:'Version',
+    app_version:'v5.0 — Salmi Study App',
+    notes_tile_sub:'Write your ideas',
+    timer_sub:'Stopwatch + timer',
+    
+    schedule_tile:'Schedule',
+    schedule_sub:'Smart reminders',
+    // timer page
+    timer_page_title:'Stopwatch & Timer',
+    timer_page_sub:'Track your time, boost productivity',
+    sw_tab:'⏱ Stopwatch',
+    ct_tab:'⏳ Countdown',
+    sw_start:'▶ Start', sw_stop:'⏸ Stop', sw_reset:'↺ Reset', sw_lap:'🏁 Lap',
+    ct_start:'▶ Start', ct_stop:'⏸ Pause', ct_reset:'↺ Reset',
+    lbl_hr:'Hours', lbl_min:'Minutes', lbl_sec:'Seconds',
+    ct_ready:'Ready', ct_running:'⏳ Running...', ct_paused:'⏸ Paused', ct_done:' Done!',
+    laps_title:'Laps', no_laps:'No laps recorded',
+    // notes page
+    notes_page_title:'My Study Notes',
+    notes_page_sub:'Write your key points and ideas',
+    add_note:'Add Note',
+    note_title_ph:'📌 Note title',
+    note_body_ph:'Write your note here...',
+    save_note:'Save Note',
+    my_notes:'My Notes',
+    no_notes:'No notes yet',
+    note_added:' Note added!',
+    note_fill:' Please fill in title and content',
+    // schedule page
+    schedule_page_title:'Study Reminders',
+    schedule_page_sub:'You will receive a notification at the set time',
+    add_reminder:'Add New Reminder',
+    lesson_ph:'🎯 Lesson or topic name',
+    add_btn:'Add Reminder',
+    saved_reminders:'Saved Reminders',
+    no_reminders:'No reminders yet',
+    fill_fields:' Please fill in all fields',
+    future_time:' Time must be in the future',
+    reminder_added:'✅ Added:',
+    // timetable
+    tt_page_title:'Timetable',
+    tt_page_sub:'study sessions • tap a day to edit',
+    tt_today:'Today',
+    tt_sessions:'sessions',
+    tt_no_slots:'No sessions — tap ＋ Add session below',
+    tt_add_slot:'Add session',
+    tt_save_slot:'✅ Save',
+    tt_cancel:'Cancel',
+    tt_time_ph:'Time',
+    tt_name_ph:'Subject or activity ✱',
+    tt_dur_ph:'Duration e.g. 2h',
+    tt_edit_title:'✏️ Edit Session',
+    tt_edit_time:'Time',
+    tt_edit_name:'Subject or activity',
+    tt_edit_dur:'Duration',
+    tt_save_edit:'💾 Save changes',
+    tt_reset_btn:'↺ Reset',
+    tt_hint:' Edit • 🗑 Delete • ＋ Add session',
+    tt_view_cards:'Cards', tt_view_table:'Table',
+    // music
+    music_page_title:'Music & Audio',
+    music_page_sub:'The right sound boosts your focus',
+    music_now_playing:'Nothing playing now',
+    music_choose:'Choose a channel from the list',
+    // exams
+    exams_page_back:'Back',
+    exams_page_title:'Exam Samples',
+    exams_page_sub:'6 subjects • choose a subject',
+    quran_page_title:'Listen to the Quran',
+    quran_page_sub:'Sacred recitations to prepare your mind for study',
+    settings_sub:'v7.0 — Salmi',
+    // settings misc
+    data_cleared:'🗑 Data cleared',
+    confirm_logout:'Log out?',
+    confirm_clear:'All your data will be deleted. Continue?',
+    confirm_reset_tt:'Reset timetable to defaults?',
+    // notif modal
+    no_upcoming:'No upcoming reminders',
+    // remember me
+    remember_me:'Remember me',
+  },
+};
+
+let curLang = 'ar';
+
+function t(key) { return (LANGS[curLang]||LANGS.ar)[key] || key; }
+
+function applyLang(lang, save=true) {
+  curLang = lang;
+  const L = LANGS[lang] || LANGS.ar;
+  // dir + lang
+  document.getElementById('html-root').setAttribute('lang', L.code);
+  document.getElementById('html-root').setAttribute('dir', L.dir);
+  document.body.className = document.body.className.replace(/lang-\w+/,'') + ` lang-${lang}`;
+  // update all data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if(LANGS[lang] && LANGS[lang][k]) el.textContent = LANGS[lang][k];
+  });
+  // breadcrumb home label
+  const bchl = document.getElementById('bc-home-lbl');
+  if(bchl) bchl.textContent = t('back');
+  // refresh home header text
+  const gr = document.getElementById('home-greeting');
+  if(gr) gr.textContent = t('home_greeting');
+  // re-render current page when language changes
+  if(save && currentPage) {
+    const renders = {exams:renderExams, schedule:renderSchedule, music:renderMusic,
+                     timer:renderTimer, notes:renderNotes, quran:renderQuran,
+                     timetable:renderTimetable, settings:renderSettings};
+    const pg = document.getElementById('page-'+currentPage);
+    if(pg && renders[currentPage]) renders[currentPage](pg);
+  } else if(currentPage==='settings') {
+    const pg=document.getElementById('page-settings');
+    if(pg) renderSettings(pg);
+  }
+  // update home quick strip i18n labels
+  const qs = document.getElementById('quick-strip');
+  if(qs) {
+    const btns = qs.querySelectorAll('.qs-item');
+    const qsLabels = ['exams','timetable','schedule','timer','notes','music'];
+    const qsIcons  = ['📄','🗓️','⏰','⏱','📝','🎵'];
+    btns.forEach((b,i) => {
+      if(qsLabels[i]) b.innerHTML = `<span class="qs-icon">${qsIcons[i]}</span> ${t(qsLabels[i])}`;
+    });
+  }
+  // update icon grid tile labels
+  const tileLabelMap = {
+    exams:'exams', timetable:'timetable', music:'music',
+    timer:'timer', notes:'notes', schedule:'schedule_tile'
+  };
+  const tileSubs = {
+    exams:'exams_sub', timetable:'timetable_sub', music:'music_sub',
+    timer:'timer_sub', notes:'notes_tile_sub', schedule:'schedule_sub'
+  };
+  Object.keys(tileLabelMap).forEach(page => {
+    const tile = document.querySelector(`.tile[onclick="openPage('${page}')"]`);
+    if(tile) {
+      const lbl = tile.querySelector('.tile-label');
+      const sub = tile.querySelector('.tile-sub');
+      if(lbl) lbl.textContent = t(tileLabelMap[page]);
+      if(sub) sub.textContent = t(tileSubs[page]);
+    }
+  });
+  // update topbar title & breadcrumb if on a page
+  if(currentPage && currentPage !== 'settings') {
+    const PAGE_LABELS_KEY = {
+      exams:'exams_page_title', schedule:'schedule_page_title',
+      timetable:'tt_page_title', music:'music_page_title',
+      timer:'timer_page_title', notes:'notes_page_title',
+      quran:'quran_page_title'
+    };
+    const lbl = t(PAGE_LABELS_KEY[currentPage] || currentPage);
+    const tbt = document.getElementById('topbar-title');
+    if(tbt) tbt.textContent = lbl;
+    const bcl = document.getElementById('bc-label');
+    if(bcl) bcl.textContent = lbl;
+  }
+  // refresh home header date
+  refreshHomeHeader();
+  if(save) {
+    const p = S.get(`prefs_${CU}`,{}); p.lang=lang; S.set(`prefs_${CU}`,p);
+  }
+}
+
+function applyDark(on, save=true) {
+  if(on) document.body.classList.add('dark');
+  else document.body.classList.remove('dark');
+  if(save) {
+    const p = S.get(`prefs_${CU}`,{}); p.dark=on; S.set(`prefs_${CU}`,p);
+  }
+}
+
+function toggleDark() {
+  const on = document.body.classList.contains('dark');
+  applyDark(!on);
+  // update toggle in settings page if open
+  const tog = document.getElementById('dark-toggle');
+  if(tog) tog.checked = !on;
+}
+
+function refreshHomeHeader() {
+  const d = new Date();
+  const dayNames = DAYS_TRANS[curLang] || DAYS_TRANS.ar;
+  const el = document.getElementById('home-date');
+  if(el) el.textContent = `${dayNames[d.getDay()]}، ${d.toLocaleDateString(curLang==='ar'?'ar-DZ':curLang==='fr'?'fr-FR':'en-GB',{day:'numeric',month:'long',year:'numeric'})}`;
+  const gr = document.getElementById('home-greeting');
+  if(gr) gr.textContent = t('home_greeting');
+  document.getElementById('home-name').textContent = CU;
+}
+
+// ════════════════════════════════════════════════════
+//  NAVIGATION
+// ════════════════════════════════════════════════════
+const PAGE_LABELS_KEY = {
+  exams:'exams', schedule:'schedule',
+  timetable:'timetable', settings:'settings',
+  music:'music', timer:'timer',
+  notes:'notes', quran:'quran'
+};
+let currentPage = null;
+
+function openPage(name) {
+  document.getElementById('home-screen').style.display = 'none';
+  document.getElementById('inner-pages').style.display = 'block';
+  document.querySelectorAll('.inner-page').forEach(p => p.classList.remove('active'));
+  const el = document.getElementById('page-'+name);
+  el.classList.add('active');
+  // breadcrumb
+  document.getElementById('breadcrumb').classList.add('visible');
+  const lbl = t(PAGE_LABELS_KEY[name] || name);
+  document.getElementById('bc-label').textContent = lbl;
+  document.getElementById('topbar-title').textContent = lbl;
+  // show back button in appbar
+  document.getElementById('tb-back').classList.add('visible');
+  currentPage = name;
+  // render
+  const renders = {exams:renderExams, schedule:renderSchedule, music:renderMusic,
+                   timer:renderTimer, notes:renderNotes, quran:renderQuran,
+                   timetable:renderTimetable, settings:renderSettings};
+  if (renders[name]) renders[name](el);
+  window.scrollTo(0,0);
+}
+
+function goHome() {
+  document.getElementById('home-screen').style.display = 'block';
+  document.getElementById('inner-pages').style.display = 'none';
+  document.getElementById('breadcrumb').classList.remove('visible');
+  document.getElementById('topbar-title').textContent = 'Salmi';
+  document.getElementById('tb-back').classList.remove('visible');
+  currentPage = null;
+  updateNoteCount(); updateNotifBadge();
+  if (swRunning) swToggle();
+}
+
+// ════════════════════════════════════════════════════
+//  TOAST
+// ════════════════════════════════════════════════════
+function toast(msg, type='ok') {
+  const w = document.getElementById('toast-wrap');
+  const t = document.createElement('div');
+  t.className = `toast ${type}`; t.textContent = msg;
+  w.appendChild(t); setTimeout(()=>t.remove(), 3200);
+}
+
+// ════════════════════════════════════════════════════
+//  MODAL
+// ════════════════════════════════════════════════════
+function openNotifModal() {
+  const reminders = getRem();
+  const now = new Date();
+  const up = reminders.filter(r=>!r.notified && new Date(r.raw)>now)
+    .sort((a,b)=>a.raw.localeCompare(b.raw));
+  const el = document.getElementById('notif-list');
+  if (!up.length) {
+    el.innerHTML = `<div class="empty"><div class="e-ico">🔕</div><p>${t('no_upcoming')}</p></div>`;
+  } else {
+    el.innerHTML = up.map(r=>`
+      <div class="r-item" style="margin-bottom:8px">
+        <span style="font-size:1.1rem">⏰</span>
+        <div class="r-info">
+          <div class="r-name">${r.lesson}</div>
+          <div class="r-dt">${r.display}</div>
+        </div>
+      </div>`).join('');
+  }
+  document.getElementById('notif-overlay').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('notif-overlay').classList.remove('open');
+}
+document.getElementById('notif-overlay').addEventListener('click', e => {
+  if (e.target===document.getElementById('notif-overlay')) closeModal();
+});
+function updateNotifBadge() {
+  const count = getRem().filter(r=>!r.notified).length;
+  const b = document.getElementById('n-badge');
+  const tb = document.getElementById('badge-remind');
+  if (count > 0) {
+    b.style.display = 'flex'; b.textContent = count;
+    if(tb){tb.style.display='flex';tb.textContent=count;}
+  } else {
+    b.style.display = 'none';
+    if(tb) tb.style.display='none';
+  }
+}
+function updateNoteCount() {
+  const n = getNotes().length;
+  const el = document.getElementById('notes-count');
+  if(el) el.textContent = n + ' ';
+}
+
+// ════════════════════════════════════════════════════
+//  NOTIFICATION DAEMON
+// ════════════════════════════════════════════════════
+function startNotifDaemon() {
+  setInterval(() => {
+    const now = new Date(); const rem = getRem(); let ch = false;
+    rem.forEach(r => {
+      if(r.notified) return;
+      const dt = new Date(r.raw); const diff=(dt-now)/1000;
+      if(diff>=0 && diff<=20) {
+        r.notified=true; ch=true;
+        toast(`⏰ حان وقت مراجعة: ${r.lesson}`, 'warn');
+        if('Notification' in window && Notification.permission==='granted')
+          new Notification('⏰ Salmi',{body:`حان وقت مراجعة: ${r.lesson}`});
+      }
+    });
+    if(ch){saveRem(rem);updateNotifBadge();}
+  }, 15000);
+}
+
+// ════════════════════════════════════════════════════
+//  DATA
+// ════════════════════════════════════════════════════
+const getRem   = ()  => S.get(`rem_${CU}`, []);
+const saveRem  = d   => S.set(`rem_${CU}`, d);
+const getNotes = ()  => S.get(`notes_${CU}`, []);
+const saveNotes= d   => S.set(`notes_${CU}`, d);
+
+// ════════════════════════════════════════════════════
+//  EXAMS DATA
+// ════════════════════════════════════════════════════
+
+// ════════════════════════════════════════════════════
+//  PAGE: QURAN
+// ════════════════════════════════════════════════════
+
+
+// ════════════════════════════════════════════════════
+//  PAGE: EXAMS
+// ════════════════════════════════════════════════════
+function renderExams(el) {
+  const diffCol = {سهل:'#1A8C4A',متوسط:'#C8860A',صعب:'#C83050'};
+  el.innerHTML = `
+    <div class="page-hero" style="background:#EEF1FF;color:#2B4ECC">
+      <div class="hero-deco">📄</div>
+      <h2>${t('exams_page_title')}</h2>
+      <p>${t('exams_page_sub')}</p>
+    </div>
+    <div id="exam-list">
+      ${EXAMS.map(ex=>`
+        <div class="exam-item" onclick="showExam(${ex.id})" style="border-right:3px solid ${ex.color}">
+          <div class="exam-ico" style="background:${ex.bg}">${ex.icon}</div>
+          <div class="exam-info">
+            <div class="exam-name">${ex.name}</div>
+            <div class="exam-meta">
+              <span class="tag" style="background:${ex.bg};color:${ex.color}">${ex.year}</span>
+              <span class="tag" style="background:#f0ede6;color:#7B82A0">${ex.dur}</span>
+              <span class="tag" style="background:${diffCol[ex.diff]}18;color:${diffCol[ex.diff]}">${ex.diff}</span>
+            </div>
+          </div>
+          <span class="exam-arr">‹</span>
+        </div>`).join('')}
+    </div>
+    <div id="exam-detail" style="display:none"></div>`;
+}
+function showExam(id) {
+  const ex = EXAMS.find(e=>e.id===id);
+  const total = ex.qs.reduce((s,q)=>s+q.pts,0);
+  const diffCol = {سهل:'#1A8C4A',متوسط:'#C8860A',صعب:'#C83050'};
+  document.getElementById('exam-list').style.display='none';
+  const det = document.getElementById('exam-detail');
+  det.style.display='block';
+  det.innerHTML = `
+    <button class="bc-back" onclick="document.getElementById('exam-list').style.display='';document.getElementById('exam-detail').style.display='none'">
+      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      العودة
+    </button>
+    <div class="page-hero" style="background:${ex.bg};color:${ex.color};margin-bottom:14px">
+      <div class="hero-deco">${ex.icon}</div>
+      <h2>${ex.name}</h2>
+      <p>${ex.year} • ${ex.dur} • ${ex.diff} • المجموع: ${total} نقطة</p>
+    </div>
+    ${ex.qs.map((q,i)=>`
+      <div class="q-block" style="border-right:3px solid ${ex.color}">
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <span class="q-num-badge" style="background:${ex.bg};color:${ex.color}">${i+1}</span>
+          <div style="flex:1">
+            <p class="q-text">${q.q}</p>
+            <span class="tag" style="background:${ex.bg};color:${ex.color};margin-top:6px;display:inline-flex">${q.pts} نقاط</span>
+          </div>
+        </div>
+      </div>`).join('')}`;
+  window.scrollTo(0,0);
+}
+
+// ════════════════════════════════════════════════════
+//  TIMETABLE — DYNAMIC EDITABLE
+// ════════════════════════════════════════════════════
+const ALL_DAYS = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+const DAYS_TRANS = {
+  ar: ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'],
+  fr: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+  en: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+};
+function dayLabel(arDay) {
+  const idx = ALL_DAYS.indexOf(arDay);
+  if(idx === -1) return arDay;
+  return (DAYS_TRANS[curLang] || DAYS_TRANS.ar)[idx];
+}
+const TT_DEFAULT = {
+  'الأحد':    [],
+  'الاثنين':  [],
+  'الثلاثاء': [],
+  'الأربعاء': [],
+  'الخميس':   [],
+  'الجمعة':   [],
+  'السبت':    [],
+};
+
+function getTT() {
+  const saved = S.get(`tt_${CU}`, null);
+  if (saved) return saved;
+  return JSON.parse(JSON.stringify(TT_DEFAULT));
+}
+function saveTT(d) { S.set(`tt_${CU}`, d); }
+
+// ── Edit modal state ──
+let _eDay=null, _eIdx=null;
+
+function openEditSlot(di, idx) {
+  const day = ALL_DAYS[di];
+  _eDay=day; _eIdx=idx;
+  const tt=getTT(), s=tt[day][idx];
+  document.getElementById('em-time').value = s[0] || '';
+  document.getElementById('em-name').value = s[1] || '';
+  document.getElementById('em-dur').value  = s[2] || '';
+  // update modal labels with current lang
+  const modal = document.getElementById('edit-overlay').querySelector('.edit-modal');
+  if(modal) {
+    modal.querySelector('h3').textContent = t('tt_edit_title');
+    const labels = modal.querySelectorAll('.em-label');
+    if(labels[0]) labels[0].textContent = t('tt_edit_time');
+    if(labels[1]) labels[1].textContent = t('tt_edit_name');
+    if(labels[2]) labels[2].textContent = t('tt_edit_dur');
+    const saveBtn = modal.querySelector('.em-save');
+    if(saveBtn) saveBtn.textContent = t('tt_save_edit');
+    const cancelBtn = modal.querySelector('.em-cancel');
+    if(cancelBtn) cancelBtn.textContent = t('tt_cancel');
+  }
+  document.getElementById('edit-overlay').classList.add('open');
+}
+function closeEditModal() {
+  document.getElementById('edit-overlay').classList.remove('open');
+  _eDay=null; _eIdx=null;
+}
+function saveEditSlot() {
+  const t = document.getElementById('em-time').value.trim();
+  const n = document.getElementById('em-name').value.trim();
+  const d = document.getElementById('em-dur').value.trim() || '--';
+  if(!n){ toast(' أدخل اسم المادة','err'); return; }
+  const tt=getTT();
+  tt[_eDay][_eIdx] = [t||'--:--', n, d];
+  tt[_eDay].sort((a,b)=>a[0].localeCompare(b[0]));
+  saveTT(tt);
+  closeEditModal();
+  const pg=document.getElementById('page-timetable');
+  if(pg && pg.classList.contains('active')) renderTimetable(pg);
+}
+document.getElementById('edit-overlay').addEventListener('click', e=>{
+  if(e.target===document.getElementById('edit-overlay')) closeEditModal();
+});
+
+// ── Add slot ──
+function addSlot(di) {
+  const day = ALL_DAYS[di];
+  const timeVal = (document.getElementById(`fi-t-${di}`)?.value||'').trim();
+  const n = (document.getElementById(`fi-n-${di}`)?.value||'').trim();
+  const d = (document.getElementById(`fi-d-${di}`)?.value||'').trim() || '--';
+  if(!n){ toast('⚠️ ' + t('tt_name_ph').replace(' ✱',''), 'err'); return; }
+  const tt=getTT();
+  if(!tt[day]) tt[day]=[];
+  tt[day].push([timeVal||'--:--', n, d]);
+  tt[day].sort((a,b)=>a[0].localeCompare(b[0]));
+  saveTT(tt);
+  ['fi-t-','fi-n-','fi-d-'].forEach(p=>{ const el=document.getElementById(p+di); if(el) el.value=''; });
+  document.getElementById(`add-panel-${di}`)?.classList.remove('show');
+  const pg=document.getElementById('page-timetable');
+  if(pg) renderTimetable(pg);
+  toast(`✅ ${n} ← ${dayLabel(day)}`, 'ok');
+}
+
+// ── Delete slot ──
+function deleteSlot(di, idx) {
+  const day = ALL_DAYS[di];
+  const tt=getTT();
+  tt[day].splice(idx,1);
+  saveTT(tt);
+  const pg=document.getElementById('page-timetable');
+  if(pg) renderTimetable(pg);
+}
+
+// ── Reset to defaults ──
+function resetTT() {
+  if(!confirm(t('confirm_reset_tt'))) return;
+  saveTT(JSON.parse(JSON.stringify(TT_DEFAULT)));
+  const pg=document.getElementById('page-timetable');
+  if(pg) renderTimetable(pg);
+  toast(t('tt_reset_btn'),'info');
+}
+
+// ── Main render ──
+let ttViewMode = 'cards'; // 'cards' or 'table'
+
+function renderTimetable(el) {
+  const todayName = ALL_DAYS[new Date().getDay()];
+  const tt = getTT();
+  const totalSlots = ALL_DAYS.reduce((s,d)=>s+(tt[d]||[]).length,0);
+
+  const viewToggle = `
+    <div class="tt-view-toggle">
+      <button class="tt-view-btn ${ttViewMode==='cards'?'active':''}" onclick="ttViewMode='cards';renderTimetable(document.getElementById('page-timetable'))">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        ${t('tt_view_cards')}
+      </button>
+      <button class="tt-view-btn ${ttViewMode==='table'?'active':''}" onclick="ttViewMode='table';renderTimetable(document.getElementById('page-timetable'))">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+        ${t('tt_view_table')}
+      </button>
+    </div>`;
+
+  // Build table view
+  const buildTableView = () => {
+    const allTimes = [...new Set(ALL_DAYS.flatMap(d=>(tt[d]||[]).map(s=>s[0])))].sort();
+    if (!allTimes.length) return `<div class="empty"><div class="e-ico">🗓️</div><p>${t('tt_no_slots')}</p></div>`;
+    const headerCols = ALL_DAYS.map(d => {
+      const isT = d===todayName;
+      return `<th style="${isT?'background:var(--blue-l)':''}">${dayLabel(d)}${isT?`<br><span style="font-size:.6rem;opacity:.8">${t('tt_today')}</span>`:''}</th>`;
+    }).join('');
+    const bodyRows = allTimes.map(time => {
+      const isAnyToday = (tt[todayName]||[]).some(s=>s[0]===time);
+      const tds = ALL_DAYS.map(day => {
+        const slot = (tt[day]||[]).find(s=>s[0]===time);
+        if (!slot) return `<td><span class="empty-cell">—</span></td>`;
+        return `<td><div class="slot-cell"><div class="sc-name">${slot[1]}</div><div class="sc-time">${slot[0]}</div><div class="sc-dur">${slot[2]}</div></div></td>`;
+      }).join('');
+      return `<tr ${isAnyToday?'class="tt-today-row"':''}><td>${time}</td>${tds}</tr>`;
+    }).join('');
+    return `<div class="tt-table-wrap"><table class="tt-table"><thead><tr><th>${t('lbl_hr').slice(0,4)}</th>${headerCols}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
+  };
+
+  const daysHTML = ALL_DAYS.map((day, di)=>{
+    const slots = tt[day]||[];
+    const isToday = day===todayName;
+    const slotsHTML = slots.length
+      ? slots.map((s,i)=>`
+          <div class="tt-slot-row">
+            <span class="sl-time">${s[0]}</span>
+            <span class="sl-name">${s[1]}</span>
+            <span class="sl-dur">${s[2]}</span>
+            <div class="sl-actions">
+              <button class="sl-btn edit" onclick="openEditSlot(${di},${i})">
+                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              </button>
+              <button class="sl-btn del" onclick="deleteSlot(${di},${i})">
+                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+              </button>
+            </div>
+          </div>`).join('')
+      : `<div class="no-slots">${t('tt_no_slots')}</div>`;
+    return `
+      <div class="tt-editor-card ${isToday?'open':''}" id="ttc-${di}">
+        <div class="tt-day-hdr ${isToday?'is-today':''}" onclick="document.getElementById('ttc-${di}').classList.toggle('open')">
+          <div class="day-left">
+            ${isToday?'<span class="today-dot"></span>':''}
+            <h4>${dayLabel(day)}</h4>
+            ${isToday?`<span class="today-pill">${t('tt_today')}</span>`:''}
+          </div>
+          <div class="day-right">
+            <span class="slot-count">${slots.length} ${t('tt_sessions')}</span>
+            <span class="tt-chevron">▼</span>
+          </div>
+        </div>
+        <div class="tt-day-body">
+          <div class="tt-slots-list">${slotsHTML}</div>
+          <div class="tt-add-panel" id="add-panel-${di}">
+            <div class="tt-add-row">
+              <input class="tt-inp small" id="fi-t-${di}" type="time" placeholder="${t('tt_time_ph')}">
+              <input class="tt-inp" id="fi-n-${di}" placeholder="${t('tt_name_ph')}">
+            </div>
+            <div class="tt-add-row">
+              <input class="tt-inp small" id="fi-d-${di}" placeholder="${t('tt_dur_ph')}">
+            </div>
+            <div class="tt-form-btns">
+              <button class="tt-save-btn" onclick="addSlot(${di})">${t('tt_save_slot')}</button>
+              <button class="tt-cancel-btn" onclick="document.getElementById('add-panel-${di}').classList.remove('show')">${t('tt_cancel')}</button>
+            </div>
+          </div>
+          <button class="tt-addrow-btn" onclick="document.getElementById('add-panel-${di}').classList.toggle('show')">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            ${t('tt_add_slot')}
+          </button>
+        </div>
+      </div>`;
+  }).join('');
+
+  el.innerHTML = `
+    <div class="page-hero" style="background:#EEF1FF;color:#2B4ECC">
+      <div class="hero-deco">🗓</div>
+      <h2>${t('tt_page_title')}</h2>
+      <p>${totalSlots} ${t('tt_page_sub')}</p>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <p style="font-size:.78rem;color:var(--ink3)">${t('tt_hint')}</p>
+      <button onclick="resetTT()"
+        style="background:none;border:1px solid var(--border);border-radius:8px;padding:4px 10px;
+               cursor:pointer;color:var(--ink3);font-size:.75rem;font-weight:700;
+               font-family:'Tajawal',sans-serif;transition:all .2s"
+        onmouseover="this.style.borderColor='var(--rose)';this.style.color='var(--rose)'"
+        onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--ink3)'">
+        ${t('tt_reset_btn')}
+      </button>
+    </div>
+    ${viewToggle}
+    ${ttViewMode === 'table' ? buildTableView() : daysHTML}
+    <div style="height:30px"></div>
+  `;
+}
+
+// ════════════════════════════════════════════════════
+//  PAGE: SCHEDULE (reminders only)
+// ════════════════════════════════════════════════════
+function renderSchedule(el) {
+  el.innerHTML = `
+    <div class="page-hero" style="background:#FFF5E0;color:#C8860A">
+      <div class="hero-deco">⏰</div>
+      <h2>${t('schedule_page_title')}</h2>
+      <p>${t('schedule_page_sub')}</p>
+    </div>
+
+    <div class="card" style="border-right:3px solid var(--gold)">
+      <div class="card-title">
+        <div class="ct-icon" style="background:#FFF5E0">➕</div>
+        ${t('add_reminder')}
+      </div>
+      <input class="inp" id="r-lesson" placeholder="${t('lesson_ph')}">
+      <input class="inp" type="datetime-local" id="r-dt">
+      <button class="btn btn-ink btn-full" onclick="addReminder()" style="margin-top:4px">
+        <svg width="15" height="15" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        ${t('add_btn')}
+      </button>
+      <div class="msg" id="r-msg"></div>
+    </div>
+
+    <div class="card-title" style="margin:0 0 10px">
+      <div class="ct-icon" style="background:#FFF5E0">📋</div>
+      ${t('saved_reminders')}
+    </div>
+    <div id="rlist"></div>
+  `;
+  const dti=el.querySelector('#r-dt');
+  const now=new Date(); now.setMinutes(now.getMinutes()-now.getTimezoneOffset());
+  dti.min=now.toISOString().slice(0,16);
+  renderRList();
+}
+function renderRList() {
+  const el = document.getElementById('rlist'); if(!el) return;
+  const rem = getRem();
+  if(!rem.length) { el.innerHTML=`<div class="empty"><div class="e-ico">📭</div><p>${t('no_reminders')}</p></div>`; return; }
+  el.innerHTML = [...rem].reverse().map((r,ri)=>`
+    <div class="r-item ${r.notified?'done':''}">
+      <span style="font-size:1.1rem">${r.notified?'✅':'⏰'}</span>
+      <div class="r-info">
+        <div class="r-name">${r.lesson}</div>
+        <div class="r-dt">${r.display}${r.notified?' • <span style="color:var(--green)">تمّت</span>':''}</div>
+      </div>
+      <button class="del-btn" onclick="delReminder(${rem.length-1-ri})">🗑</button>
+    </div>`).join('');
+}
+function addReminder() {
+  const lesson = document.getElementById('r-lesson')?.value.trim();
+  const raw    = document.getElementById('r-dt')?.value;
+  const msg    = document.getElementById('r-msg');
+  if(!lesson||!raw){if(msg){msg.textContent=t('fill_fields');msg.className='msg err';}return;}
+  const dt = new Date(raw);
+  if(dt<=new Date()){if(msg){msg.textContent=t('future_time');msg.className='msg err';}return;}
+  const rem = getRem();
+  rem.push({
+    lesson, raw,
+    display: dt.toLocaleString('ar-DZ',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}),
+    notified: false
+  });
+  saveRem(rem);
+  if(document.getElementById('r-lesson')) document.getElementById('r-lesson').value='';
+  if(document.getElementById('r-dt')) document.getElementById('r-dt').value='';
+  if(msg){msg.textContent=` تمت الإضافة: ${lesson}`;msg.className='msg ok';}
+  renderRList(); updateNotifBadge();
+  toast(`تمت إضافة تذكير: ${lesson}`,'ok');
+}
+function delReminder(idx) {
+  const rem = getRem(); rem.splice(idx,1); saveRem(rem);
+  renderRList(); updateNotifBadge();
+}
+
+// ════════════════════════════════════════════════════
+//  MUSIC DATA
+// ════════════════════════════════════════════════════
+const MUSIC = [
+  {name:'مسيقى هادئة',         sub:'موسيقى هادئة للتركيز',       icon:'🎧',color:'#2B4ECC',bg:'#EEF1FF',url:'https://www.lofi.cafe'},
+  {name:'أصوات الطبيعة',         sub:'مطر • غابة • محيط',          icon:'🌊',color:'#0B8C78',bg:'#E0F5F1',url:'https://mynoise.net'},
+];
+
+// ════════════════════════════════════════════════════
+//  PAGE: MUSIC
+// ════════════════════════════════════════════════════
+function renderMusic(el) {
+  el.innerHTML = `
+    <div class="page-hero" style="background:#E0F5F1;color:#0B8C78">
+      <div class="hero-deco">🎵</div>
+      <h2>${t('music_page_title')}</h2>
+      <p>${t('music_page_sub')}</p>
+    </div>
+    <div class="np-card">
+      <div class="np-disk" id="np-disk">🎵</div>
+      <div class="np-name" id="np-name">${t('music_now_playing')}</div>
+      <div class="np-sub" id="np-sub">${t('music_choose')}</div>
+    </div>
+    ${MUSIC.map((m,i)=>`
+      <div class="music-tile" id="mt-${i}" onclick="playMusic(${i})">
+        <div class="m-ico" style="background:${m.bg}">${m.icon}</div>
+        <div class="m-info">
+          <div class="m-name">${m.name}</div>
+          <div class="m-sub">${m.sub}</div>
+        </div>
+        <span class="m-play" id="mplay-${i}">▶</span>
+      </div>`).join('')}`;
+}
+let curMusic = -1;
+function playMusic(i) {
+  const m = MUSIC[i];
+  document.getElementById('np-disk').textContent = m.icon;
+  document.getElementById('np-disk').style.background = m.bg;
+  document.getElementById('np-disk').classList.add('active');
+  document.getElementById('np-name').textContent = m.name;
+  document.getElementById('np-sub').textContent = m.sub;
+  MUSIC.forEach((_,j)=>{
+    const mt=document.getElementById(`mt-${j}`); const mp=document.getElementById(`mplay-${j}`);
+    if(mt) mt.classList.remove('playing'); if(mp) mp.textContent='▶';
+  });
+  document.getElementById(`mt-${i}`)?.classList.add('playing');
+  document.getElementById(`mplay-${i}`).textContent='⏸';
+  curMusic = i;
+  window.open(m.url,'_blank');
+  toast(`🎵 فتح: ${m.name}`,'info');
+}
+
+// ════════════════════════════════════════════════════
+//  PAGE: QURAN
+// ════════════════════════════════════════════════════
+const QURAN_SITES = [
+  {name:'القرآن الكريم MP3',   sub:'اختر القارئ والسورة',         icon:'🕌',url:'https://www.mp3quran.net'},
+  {name:'قرآن — Quran.com',   sub:'تلاوة مع ترجمة وتفسير',       icon:'📖',url:'https://quran.com'},
+];
+function renderQuran(el) {
+  el.innerHTML = `
+    <div class="page-hero" style="background:#E4F7EC;color:#1A8C4A">
+      <div class="hero-deco">📖</div>
+      <h2>${t('quran_page_title')}</h2>
+      <p>${t('quran_page_sub')}</p>
+    </div>
+    ${QURAN_SITES.map(s=>`
+      <div class="music-tile" onclick="window.open('${s.url}','_blank');toast('📖 فتح: ${s.name}','ok')">
+        <div class="m-ico" style="background:#E4F7EC;font-size:1.4rem">${s.icon}</div>
+        <div class="m-info">
+          <div class="m-name">${s.name}</div>
+          <div class="m-sub">${s.sub}</div>
+        </div>
+        <span class="m-play" style="color:#1A8C4A">▶</span>
+      </div>`).join('')}`;
+}
+
+// ════════════════════════════════════════════════════
+//  PAGE: TIMER
+// ════════════════════════════════════════════════════
+let swRunning=false,swElapsed=0,swStart=0,swInt=null,swLaps=[];
+let ctRunning=false,ctRem=0,ctTotal=0,ctInt=null;
+let timerTab='sw';
+
+function renderTimer(el) {
+  const circ = (2*Math.PI*78).toFixed(3);
+  el.innerHTML = `
+    <div class="page-hero" style="background:#FFEBEF;color:#C83050">
+      <div class="hero-deco">⏱</div>
+      <h2>${t('timer_page_title')}</h2>
+      <p>${t('timer_page_sub')}</p>
+    </div>
+
+    <div class="timer-tabs-row">
+      <button class="t-tab ${timerTab==='sw'?'active':''}" id="tt-sw" onclick="setTTab('sw')">${t('sw_tab')}</button>
+      <button class="t-tab ${timerTab==='ct'?'active':''}" id="tt-ct" onclick="setTTab('ct')">${t('ct_tab')}</button>
+    </div>
+
+    <!-- STOPWATCH -->
+    <div id="sw-panel" style="display:${timerTab==='sw'?'':'none'}">
+      <div class="timer-face">
+        <div class="timer-digits" id="sw-d">${swFmt(swElapsed)}</div>
+        <div class="timer-label">${t('sw_tab')}</div>
+      </div>
+      <div class="ctrl-row">
+        <button class="ctrl ${swRunning?'pause':'play'}" id="sw-btn" onclick="swToggle()">${swRunning?t('sw_stop'):t('sw_start')}</button>
+        <button class="ctrl lap" onclick="swLap()">${t('sw_lap')}</button>
+        <button class="ctrl reset" onclick="swReset()">${t('sw_reset')}</button>
+      </div>
+      <div class="card" style="padding:14px">
+        <div class="card-title" style="margin-bottom:8px"><div class="ct-icon" style="background:#E0F5F1">🏁</div>${t('laps_title')}</div>
+        <div class="laps-box" id="laps-box">
+          ${swLaps.length ? swLaps.map((lt,i)=>`<div class="lap-row"><span class="lap-n">${swLaps.length-i}</span><span class="lap-t">${lt}</span></div>`).join('') : `<div class="empty" style="padding:10px"><p>${t('no_laps')}</p></div>`}
+        </div>
+      </div>
+    </div>
+
+    <!-- COUNTDOWN -->
+    <div id="ct-panel" style="display:${timerTab==='ct'?'':'none'}">
+      <div style="display:flex;justify-content:center;margin-bottom:12px">
+        <div style="position:relative;width:180px;height:180px">
+          <svg width="180" height="180" style="transform:rotate(-90deg)">
+            <circle class="r-bg" cx="90" cy="90" r="78"/>
+            <circle class="r-fill" id="ct-ring" cx="90" cy="90" r="78"
+              stroke="var(--gold)" stroke-dasharray="${circ}" stroke-dashoffset="${ctTotal>0?circ*(1-ctRem/ctTotal):0}"/>
+          </svg>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center">
+            <div class="timer-digits" id="ct-d" style="font-size:2rem;color:var(--ink)">${ctFmt(ctRem||1500)}</div>
+            <div style="font-size:.72rem;color:var(--ink3);margin-top:2px" id="ct-lbl">${ctRunning?t('ct_running'):t('ct_ready')}</div>
+          </div>
+        </div>
+      </div>
+      <div class="ct-row">
+        <div>
+          <div style="text-align:center;font-size:.7rem;color:var(--ink3);margin-bottom:3px">${t('lbl_hr')}</div>
+          <input class="ct-inp" id="ct-hr" type="number" min="0" max="23" value="${Math.floor((ctRem||1500)/3600)}">
+        </div>
+        <span class="colon">:</span>
+        <div>
+          <div style="text-align:center;font-size:.7rem;color:var(--ink3);margin-bottom:3px">${t('lbl_min')}</div>
+          <input class="ct-inp" id="ct-min" type="number" min="0" max="59" value="${String(Math.floor(((ctRem||1500)%3600)/60)).padStart(2,'0')}">
+        </div>
+        <span class="colon">:</span>
+        <div>
+          <div style="text-align:center;font-size:.7rem;color:var(--ink3);margin-bottom:3px">${t('lbl_sec')}</div>
+          <input class="ct-inp" id="ct-sec" type="number" min="0" max="59" value="${String((ctRem||1500)%60).padStart(2,'0')}">
+        </div>
+      </div>
+      <div class="preset-wrap">
+        <button class="preset" onclick="setPreset(0,5,0)">5 min</button>
+        <button class="preset" onclick="setPreset(0,15,0)">15 min</button>
+        <button class="preset" onclick="setPreset(0,25,0)">25</button>
+        <button class="preset" onclick="setPreset(0,45,0)">45 min</button>
+        <button class="preset" onclick="setPreset(1,0,0)">1h</button>
+        <button class="preset" onclick="setPreset(1,30,0)">1h30</button>
+        <button class="preset" onclick="setPreset(2,0,0)">2h</button>
+        <button class="preset" onclick="setPreset(3,0,0)">3h</button>
+      </div>
+      <div class="ctrl-row">
+        <button class="ctrl play" onclick="ctStart()">${t('ct_start')}</button>
+        <button class="ctrl pause" onclick="ctStop()">${t('ct_stop')}</button>
+        <button class="ctrl reset" onclick="ctReset()">${t('ct_reset')}</button>
+      </div>
+    </div>`;
+}
+function setTTab(t) {
+  timerTab = t;
+  document.getElementById('tt-sw').classList.toggle('active',t==='sw');
+  document.getElementById('tt-ct').classList.toggle('active',t==='ct');
+  document.getElementById('sw-panel').style.display = t==='sw'?'':'none';
+  document.getElementById('ct-panel').style.display = t==='ct'?'':'none';
+}
+
+// stopwatch
+function swFmt(ms) {
+  const s=Math.floor(ms/1000),h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sc=s%60,ds=Math.floor((ms%1000)/100);
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sc).padStart(2,'0')}.${ds}`;
+}
+function swToggle() {
+  const btn=document.getElementById('sw-btn'); if(!btn) return;
+  if(!swRunning) {
+    swRunning=true; swStart=Date.now()-swElapsed;
+    swInt=setInterval(()=>{
+      swElapsed=Date.now()-swStart;
+      const d=document.getElementById('sw-d'); if(d) d.textContent=swFmt(swElapsed);
+    },100);
+    btn.textContent='⏸ وقف'; btn.className='ctrl pause';
+  } else {
+    swRunning=false; clearInterval(swInt);
+    btn.textContent='▶ ابدأ'; btn.className='ctrl play';
+  }
+}
+function swLap() {
+  if(!swRunning&&swElapsed===0) return;
+  const t=swFmt(swElapsed); const n=swLaps.length+1; swLaps.unshift(t);
+  const lb=document.getElementById('laps-box'); if(!lb) return;
+  lb.innerHTML=swLaps.map((lt,i)=>`
+    <div class="lap-row">
+      <span class="lap-n">${swLaps.length-i}</span>
+      <span class="lap-t">${lt}</span>
+    </div>`).join('');
+}
+function swReset() {
+  swRunning=false; clearInterval(swInt); swElapsed=0; swLaps=[];
+  const d=document.getElementById('sw-d'); if(d) d.textContent='00:00:00.0';
+  const b=document.getElementById('sw-btn'); if(b){b.textContent='▶ ابدأ';b.className='ctrl play';}
+  const lb=document.getElementById('laps-box'); if(lb) lb.innerHTML='<div class="empty" style="padding:10px"><p>لا توجد دورات</p></div>';
+}
+
+// countdown
+function ctFmt(s) {
+  const h = Math.floor(s/3600);
+  const m = Math.floor((s%3600)/60);
+  const sc = s%60;
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sc).padStart(2,'0')}`;
+}
+function updateRing() {
+  const ring=document.getElementById('ct-ring'); if(!ring) return;
+  const r=78,circ=2*Math.PI*r,pct=ctTotal>0?ctRem/ctTotal:1;
+  ring.style.strokeDashoffset=circ*(1-pct);
+}
+function ctStart() {
+  if(ctRunning) return;
+  const h=parseInt(document.getElementById('ct-hr')?.value||0);
+  const m=parseInt(document.getElementById('ct-min')?.value||0);
+  const s=parseInt(document.getElementById('ct-sec')?.value||0);
+  if(!ctRem){ctRem=h*3600+m*60+s;ctTotal=ctRem;}
+  if(ctRem<=0) return;
+  ctRunning=true;
+  const lbl=document.getElementById('ct-lbl'); if(lbl) lbl.textContent='';
+  ctInt=setInterval(()=>{
+    ctRem--;
+    const d=document.getElementById('ct-d'); if(d) d.textContent=ctFmt(ctRem);
+    updateRing();
+    if(ctRem<=0){
+      ctRunning=false; clearInterval(ctInt);
+      const lbl2=document.getElementById('ct-lbl'); if(lbl2) lbl2.textContent='';
+      toast(' انتهت الجلسة! خذ استراحة.','warn');
+      if('Notification' in window && Notification.permission==='granted')
+        new Notification(' Salmi',{body:'انتهت جلسة الدراسة!'});
+    }
+  },1000);
+}
+function ctStop() {
+  ctRunning=false; clearInterval(ctInt);
+  const lbl=document.getElementById('ct-lbl'); if(lbl) lbl.textContent='⏸ متوقف';
+}
+function ctReset() {
+  ctRunning=false; clearInterval(ctInt); ctRem=0; ctTotal=0;
+  const d=document.getElementById('ct-d'); if(d) d.textContent='00:00:00';
+  const lbl=document.getElementById('ct-lbl'); if(lbl) lbl.textContent='';
+  const ring=document.getElementById('ct-ring'); if(ring) ring.style.strokeDashoffset=0;
+}
+function setPreset(h, m, s) {
+  ctRunning=false; clearInterval(ctInt);
+  ctRem = h*3600 + m*60 + s;
+  ctTotal = ctRem;
+  const d=document.getElementById('ct-d'); if(d) d.textContent=ctFmt(ctRem);
+  const hi=document.getElementById('ct-hr');  if(hi) hi.value=h;
+  const mi=document.getElementById('ct-min'); if(mi) mi.value=m;
+  const si=document.getElementById('ct-sec'); if(si) si.value=String(s).padStart(2,'0');
+  const ring=document.getElementById('ct-ring'); if(ring) ring.style.strokeDashoffset=0;
+  const lbl=document.getElementById('ct-lbl'); if(lbl) lbl.textContent='';
+}
+
+// ════════════════════════════════════════════════════
+//  PAGE: NOTES
+// ════════════════════════════════════════════════════
+const NC=['#2B4ECC','#0B8C78','#C8860A','#6B30CC','#C83050','#1A8C4A'];
+const NB=['#EEF1FF','#E0F5F1','#FFF5E0','#F2EEFF','#FFEBEF','#E4F7EC'];
+
+function renderNotes(el) {
+  el.innerHTML = `
+    <div class="page-hero" style="background:#F2EEFF;color:#6B30CC">
+      <div class="hero-deco">📝</div>
+      <h2>${t('notes_page_title')}</h2>
+      <p>${t('notes_page_sub')}</p>
+    </div>
+    <div class="card" style="border-right:3px solid var(--violet)">
+      <div class="card-title"><div class="ct-icon" style="background:#F2EEFF">✏️</div>${t('add_note')}</div>
+      <input class="inp" id="n-title" placeholder="${t('note_title_ph')}">
+      <textarea class="inp" id="n-body" placeholder="${t('note_body_ph')}"></textarea>
+      <button class="btn btn-ink btn-full" onclick="addNote()" style="margin-top:4px">
+        <svg width="15" height="15" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        ${t('save_note')}
+      </button>
+      <div class="msg" id="n-msg"></div>
+    </div>
+    <div class="card-title" style="margin:0 0 10px"><div class="ct-icon" style="background:#F2EEFF">📚</div>${t('my_notes')}</div>
+    <div id="notes-list"></div>`;
+  renderNList();
+}
+function renderNList() {
+  const el=document.getElementById('notes-list'); if(!el) return;
+  const notes=getNotes();
+  if(!notes.length){el.innerHTML=`<div class="empty"><div class="e-ico">🗒️</div><p>${t('no_notes')}</p></div>`;return;}
+  el.innerHTML=[...notes].reverse().map((n,ri)=>{
+    const ci=(notes.length-1-ri)%NC.length;
+    return `
+      <div class="note-card" style="border-right-color:${NC[ci]}">
+        <div class="note-header">
+          <div class="note-title">${n.title}</div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="note-date">${n.date}</span>
+            <button class="del-btn" onclick="delNote(${notes.length-1-ri})">🗑</button>
+          </div>
+        </div>
+        <div class="note-body">${n.body}</div>
+      </div>`; }).join('');
+}
+function addNote() {
+  const title=document.getElementById('n-title')?.value.trim();
+  const body=document.getElementById('n-body')?.value.trim();
+  const msg=document.getElementById('n-msg');
+  if(!title||!body){if(msg){msg.textContent=t('note_fill');msg.className='msg err';}return;}
+  const notes=getNotes();
+  notes.push({title,body,date:new Date().toLocaleDateString(curLang==='ar'?'ar-DZ':curLang==='fr'?'fr-FR':'en-GB')});
+  saveNotes(notes);
+  if(document.getElementById('n-title')) document.getElementById('n-title').value='';
+  if(document.getElementById('n-body')) document.getElementById('n-body').value='';
+  if(msg){msg.textContent=t('note_added');msg.className='msg ok';}
+  renderNList(); updateNoteCount();
+  toast(' تمت إضافة الملاحظة','ok');
+}
+function delNote(idx) {
+  const notes=getNotes(); notes.splice(idx,1); saveNotes(notes);
+  renderNList(); updateNoteCount();
+}
+
+// ════════════════════════════════════════════════════
+//  PAGE: SETTINGS
+// ════════════════════════════════════════════════════
+function renderSettings(el) {
+  const isDark = document.body.classList.contains('dark');
+  const prefs  = S.get(`prefs_${CU}`,{lang:'ar',dark:false});
+  
+
+  el.innerHTML = `
+  
+    <div class="page-hero" style="background:var(--blue-bg);color:var(--blue)">
+      <div class="hero-deco">⚙️</div>
+      <h2>${t('settings')}</h2>
+      <p>${t('')}</p>
+    </div>
+    
+
+    <!-- APPEARANCE -->
+    <p class="settings-section-title">🎨 ${t('appearance')}</p>
+    <div class="settings-section">
+      <div class="settings-row">
+        <div class="sr-icon" style="background:var(--ink);color:#fff">🌙</div>
+        <div class="sr-info">
+          <div class="sr-title">${t('dark_mode')}</div>
+          <div class="sr-sub">${t('dark_sub')}</div>
+        </div>
+        <label class="toggle-wrap">
+          <input type="checkbox" id="dark-toggle" ${isDark?'checked':''} onchange="toggleDark()">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- LANGUAGE -->
+    <p class="settings-section-title">🌐 ${t('language')}</p>
+    <div class="settings-section">
+      <div class="settings-row" style="flex-wrap:wrap;gap:10px">
+        <div class="sr-icon" style="background:#EEF1FF">🌍</div>
+        <div class="sr-info">
+          <div class="sr-title">${t('lang_label')}</div>
+          <div class="sr-sub">${t('lang_sub')}</div>
+        </div>
+        <div class="lang-btns">
+          <button class="lang-btn ${prefs.lang==='ar'?'active':''}" onclick="applyLang('ar');renderSettings(document.getElementById('page-settings'))">العربية</button>
+          <button class="lang-btn ${prefs.lang==='fr'?'active':''}" onclick="applyLang('fr');renderSettings(document.getElementById('page-settings'))">Français</button>
+          <button class="lang-btn ${prefs.lang==='en'?'active':''}" onclick="applyLang('en');renderSettings(document.getElementById('page-settings'))">English</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCOUNT -->
+    <p class="settings-section-title">👤 ${t('account')}</p>
+    <div class="settings-section">
+      <div class="settings-row">
+        <div class="sr-icon" style="background:var(--violet-bg)">👤</div>
+        <div class="sr-info">
+          <div class="sr-title">${CU}</div>
+          <div class="sr-sub">${t('account')}</div>
+        </div>
+      </div>
+      <div class="settings-row" style="cursor:pointer" onclick="logOut()">
+        <div class="sr-icon" style="background:#FFEBEF">🚪</div>
+        <div class="sr-info">
+          <div class="sr-title" style="color:var(--rose)">${t('logout')}</div>
+        </div>
+        <svg width="14" height="14" fill="none" stroke="var(--ink3)" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </div>
+
+    <!-- DATA -->
+    <p class="settings-section-title">🗄️ ${t('account')} & Data</p>
+    <div class="settings-section">
+      <div class="settings-row" style="cursor:pointer" onclick="resetTT()">
+        <div class="sr-icon" style="background:var(--gold-bg)">🗓️</div>
+        <div class="sr-info"><div class="sr-title">${t('reset_tt')}</div></div>
+        <svg width="14" height="14" fill="none" stroke="var(--ink3)" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="settings-row" style="cursor:pointer" onclick="clearAllData()">
+        <div class="sr-icon" style="background:#FFEBEF">🗑️</div>
+        <div class="sr-info"><div class="sr-title" style="color:var(--rose)">${t('clear_data')}</div></div>
+        <svg width="14" height="14" fill="none" stroke="var(--ink3)" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </div>
+    
+
+    <!-- VERSION -->
+    <p class="settings-section-title">ℹ️ ${t('')}</p>
+    <div class="settings-section">
+      <div class="settings-row">
+        <div class="sr-icon" style="background:var(--blue-bg)">📦</div>
+        <div class="sr-info">
+          <div class="sr-title">${t('')}</div>
+          <div class="sr-sub">Made with ❤️ by Zakaria Salmi</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOCIAL MEDIA -->
+    <p class="settings-section-title">Contact us</p>
+    <div class="settings-section">
+      <div class="social-links">
+        <a href="https://www.instagram.com/__zakaria_salmi__/#" target="_blank" class="social-btn social-btn-ig">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+          Instagram
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=100094695978903" target="_blank" class="social-btn social-btn-fb">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          Facebook
+        </a>
+      </div>
+    </div>
+
+    <div style="height:30px"></div>
+    
+  `;
+ 
+}
+
+
+
+function logOut() {
+  if(!confirm(t('confirm_logout'))) return;
+  CU=null;
+  document.getElementById('main-app').style.display='none';
+  document.getElementById('auth-screen').style.display='flex';
+  document.getElementById('a-user').value='';
+  document.getElementById('a-pass').value='';
+  setMsg('');
+}
+
+function clearAllData() {
+  if(!confirm(t('confirm_clear'))) return;
+  S.set(`rem_${CU}`,[]);
+  S.set(`notes_${CU}`,[]);
+  S.set(`tt_${CU}`,null);
+  updateNoteCount(); updateNotifBadge();
+  toast(t('data_cleared'),'warn');
+  const pg=document.getElementById('page-settings');
+  if(pg) renderSettings(pg);
+}
+</script>
+</body>
+</html>
