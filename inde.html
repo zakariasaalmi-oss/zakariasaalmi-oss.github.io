@@ -167,7 +167,7 @@ body {
 /* ══════════════════════════════════════════
    MAIN APP
 ══════════════════════════════════════════ */
-#main-app { display: none; flex-direction: column; min-height: 100vh; }
+#main-app { display: flex; flex-direction: column; min-height: 100vh; }
 
 /* topbar */
 .topbar {
@@ -968,57 +968,6 @@ textarea.inp { resize: vertical; min-height: 80px; }
 <!-- ════════════════════════════════════════
      AUTH
 ════════════════════════════════════════ -->
-<div id="auth-screen">
-  <div class="auth-wrap">
-    <div class="auth-logo">
-      <div class="auth-logo-icon">
-        <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M22 6L4 15l18 9 18-9L22 6Z" stroke="#fff" stroke-width="2.2" stroke-linejoin="round" fill="none"/>
-          <path d="M4 15v14M40 15v14" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
-          <path d="M10 18v10a12 6 0 0 0 24 0V18" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-        </svg>
-      </div>
-      <h1>Sal<em>mi</em></h1>
-      <p> !!welcome </p>
-    </div>
-    <div class="auth-card">
-      <h2 id="auth-heading">Log in </h2>
-      <div class="f-group">
-        <label>Username  </label>
-        <div class="f-wrap">
-          <span class="fi">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-          </span>
-          <input type="text" id="a-user" placeholder="Enter your username">
-        </div>
-      </div>
-      <div class="f-group">
-        <label>Password  </label>
-        <div class="f-wrap">
-          <span class="fi">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-          </span>
-          <input type="password" id="a-pass" placeholder="Enter your password">
-          <button class="eye-btn" onclick="toggleEye()">👁</button>
-        </div>
-      </div>
-      <div class="auth-msg" id="auth-msg"></div>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:0 2px">
-        <input type="checkbox" id="remember-me" style="width:16px;height:16px;accent-color:var(--blue);cursor:pointer">
-        <label for="remember-me" style="font-size:.82rem;color:var(--ink2);font-weight:600;cursor:pointer" id="remember-lbl">save my data </label>
-      </div>
-      <button class="btn-main" onclick="authSubmit()">
-        <svg width="16" height="16" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-        <span id="auth-btn-lbl">Log in</span>
-      </button>
-      <button class="link-btn" onclick="toggleAuthMode()" id="auth-switch"> you Don't have an account? Create one!</button>
-    </div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════
-     MAIN APP
-════════════════════════════════════════ -->
 <div id="main-app">
   <!-- topbar -->
     <!-- TOPBAR -->
@@ -1249,69 +1198,10 @@ const S = {
   get: (k, d={}) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
   set: (k,v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
 };
-let CU = null; // current user
-
-// ════════════════════════════════════════════════════
-//  AUTH
-// ════════════════════════════════════════════════════
-let authMode = 'login';
-
-// ── Auto-fill remembered credentials on load ──
-(function loadRemembered() {
-  const saved = S.get('remembered_user', null);
-  if (saved && saved.u) {
-    document.getElementById('a-user').value = saved.u;
-    document.getElementById('a-pass').value = saved.p || '';
-    document.getElementById('remember-me').checked = true;
-  }
-})();
-
-function toggleEye() {
-  const p = document.getElementById('a-pass');
-  p.type = p.type==='password' ? 'text' : 'password';
-}
-function toggleAuthMode() {
-  authMode = authMode==='login' ? 'signup' : 'login';
-  const s = authMode==='signup';
-  document.getElementById('auth-heading').textContent = s ? 'Create a new account' : 'Log in';
-  document.getElementById('auth-btn-lbl').textContent = s ? 'Create account' : 'Log in';
-  document.getElementById('auth-switch').textContent = s ? 'Already have an account? Log in' : 'Don\'t have an account? Create one!';
-  const rmRow = document.getElementById('remember-me')?.closest('div');
-  if(rmRow) rmRow.style.display = s ? 'none' : 'flex';
-  setMsg('');
-}
-function setMsg(t, cls='') {
-  const el = document.getElementById('auth-msg');
-  el.textContent = t; el.className = `auth-msg ${cls}`;
-}
-function authSubmit() {
-  const u = document.getElementById('a-user').value.trim();
-  const p = document.getElementById('a-pass').value.trim();
-  if (!u||!p) { setMsg('Please fill in all fields','err'); return; }
-  const users = S.get('users', {});
-  if (authMode==='signup') {
-    if (users[u]) { setMsg('The username is taken.','err'); return; }
-    users[u] = { pw: p, joined: Date.now() };
-    S.set('users', users);
-    setMsg('✅ Account created! Please log in.','ok');
-    toggleAuthMode();
-  } else {
-    if (!users[u] || users[u].pw !== p) { setMsg('❌ Invalid credentials','err'); return; }
-    // handle remember me
-    const rememberMe = document.getElementById('remember-me').checked;
-    if (rememberMe) {
-      S.set('remembered_user', { u, p });
-    } else {
-      S.set('remembered_user', null);
-    }
-    CU = u; startApp();
-  }
-}
-document.getElementById('a-pass').addEventListener('keydown', e => { if(e.key==='Enter') authSubmit(); });
-document.getElementById('a-user').addEventListener('keydown', e => { if(e.key==='Enter') authSubmit(); });
+let CU = 'salmi';
 
 function startApp() {
-  document.getElementById('auth-screen').style.display = 'none';
+  // no auth screen
   document.getElementById('main-app').style.display = 'flex';
   // load prefs
   const prefs = S.get(`prefs_${CU}`, {lang:'ar', dark:false});
@@ -2709,11 +2599,9 @@ function renderSettings(el) {
 function logOut() {
   if(!confirm(t('confirm_logout'))) return;
   CU=null;
-  document.getElementById('main-app').style.display='none';
-  document.getElementById('auth-screen').style.display='flex';
-  document.getElementById('a-user').value='';
-  document.getElementById('a-pass').value='';
-  setMsg('');
+  // no auth
+  location.reload();
+
 }
 
 function clearAllData() {
@@ -2726,6 +2614,9 @@ function clearAllData() {
   const pg=document.getElementById('page-settings');
   if(pg) renderSettings(pg);
 }
+
+// Auto-launch
+startApp();
 </script>
 </body>
 </html>
