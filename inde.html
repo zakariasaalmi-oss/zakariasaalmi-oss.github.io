@@ -960,6 +960,56 @@ textarea.inp { resize: vertical; min-height: 80px; }
   border: 1.5px solid #FFCCD6;
 }
 .danger-btn:hover { background: var(--rose); color: #fff; }
+
+/* ══ AI CHAT ══ */
+.ai-page{display:flex;flex-direction:column;height:calc(100vh - 148px);min-height:420px;background:var(--cream);border-radius:20px;overflow:hidden;border:1.5px solid var(--border);box-shadow:var(--shadow)}
+.ai-topbar{display:flex;align-items:center;gap:12px;padding:13px 16px;background:var(--card);border-bottom:1px solid var(--border);flex-shrink:0}
+.ai-ava{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#6B30CC,#9B59F5);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.ai-tinfo{flex:1}
+.ai-tname{font-size:.9rem;font-weight:900;color:var(--ink)}
+.ai-tstatus{font-size:.7rem;color:var(--green);font-weight:700;display:flex;align-items:center;gap:4px}
+.ai-tstatus::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green)}
+.ai-tstatus.busy{color:var(--gold)}.ai-tstatus.busy::before{background:var(--gold);animation:ai-blink .7s infinite}
+@keyframes ai-blink{0%,100%{opacity:1}50%{opacity:.2}}
+.ai-tclear{width:30px;height:30px;border-radius:9px;border:none;cursor:pointer;background:var(--cream2);color:var(--ink3);display:flex;align-items:center;justify-content:center;transition:all .18s}
+.ai-tclear:hover{background:var(--rose-bg);color:var(--rose)}
+.ai-msgs{flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:12px;scrollbar-width:thin}
+.ai-mrow{display:flex;gap:9px;align-items:flex-end}
+.ai-mrow.user{flex-direction:row-reverse}
+.ai-mava{width:30px;height:30px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.85rem}
+.ai-mrow.bot .ai-mava{background:linear-gradient(135deg,#6B30CC,#9B59F5)}
+.ai-mrow.user .ai-mava{background:var(--ink);color:#fff;font-size:.7rem;font-weight:900}
+.ai-bub{max-width:80%;padding:10px 13px;font-size:.87rem;line-height:1.65;word-break:break-word;white-space:pre-wrap;animation:msg-in .22s ease}
+@keyframes msg-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.ai-mrow.user .ai-bub{background:var(--violet);color:#fff;border-radius:16px 16px 4px 16px}
+.ai-mrow.bot .ai-bub{background:var(--card);border:1.5px solid var(--border);color:var(--ink);border-radius:16px 16px 16px 4px}
+.ai-bub.thinking{color:var(--ink3);font-style:italic}
+.ai-mtime{font-size:.62rem;color:var(--ink3);margin-top:3px;text-align:right}
+.ai-mrow.bot .ai-mtime{text-align:left}
+.ai-welcome{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;gap:8px}
+.ai-wava{width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,#6B30CC,#9B59F5);display:flex;align-items:center;justify-content:center;font-size:1.9rem;box-shadow:0 8px 24px rgba(107,48,204,.3);margin-bottom:6px}
+.ai-wname{font-size:1.05rem;font-weight:900;color:var(--ink)}
+.ai-wsub{font-size:.8rem;color:var(--ink3);line-height:1.6;max-width:230px}
+.ai-spkbar{display:none;align-items:center;gap:8px;padding:7px 14px;background:var(--violet-bg);border-top:1px solid var(--violet);flex-shrink:0}
+.ai-spkbar.on{display:flex}
+.ai-wave{display:flex;gap:3px;align-items:center}
+.ai-wave span{display:inline-block;width:3px;border-radius:2px;background:var(--violet);animation:wbar .7s ease-in-out infinite}
+.ai-wave span:nth-child(1){height:5px;animation-delay:0s}.ai-wave span:nth-child(2){height:12px;animation-delay:.12s}.ai-wave span:nth-child(3){height:8px;animation-delay:.24s}.ai-wave span:nth-child(4){height:14px;animation-delay:.08s}.ai-wave span:nth-child(5){height:6px;animation-delay:.2s}
+@keyframes wbar{0%,100%{transform:scaleY(.5)}50%{transform:scaleY(1.2)}}
+.ai-spklbl{flex:1;font-size:.74rem;font-weight:700;color:var(--violet)}
+.ai-spkstop{background:none;border:none;cursor:pointer;color:var(--rose);font-size:.8rem;font-weight:800;padding:0 4px}
+.ai-inparea{display:flex;gap:7px;align-items:flex-end;padding:9px 11px 11px;background:var(--card);border-top:1px solid var(--border);flex-shrink:0}
+.ai-micbtn{width:40px;height:40px;border-radius:11px;flex-shrink:0;border:1.5px solid var(--border);background:var(--cream2);color:var(--ink3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.ai-micbtn:hover{border-color:var(--rose);color:var(--rose);background:var(--rose-bg)}
+.ai-micbtn.rec{background:var(--rose);color:#fff;border-color:var(--rose);animation:mpulse 1s ease-in-out infinite}
+@keyframes mpulse{0%,100%{box-shadow:0 0 0 0 rgba(200,48,80,.4)}50%{box-shadow:0 0 0 8px rgba(200,48,80,0)}}
+.ai-micbtn:disabled{opacity:.4;cursor:not-allowed;animation:none}
+.ai-txtarea{flex:1;padding:10px 13px;border-radius:13px;border:1.5px solid var(--border);background:var(--cream);color:var(--ink);font-family:'Tajawal',sans-serif;font-size:.9rem;resize:none;outline:none;transition:border-color .2s;max-height:100px;overflow-y:auto;line-height:1.5}
+.ai-txtarea:focus{border-color:var(--violet)}
+.ai-txtarea::placeholder{color:var(--ink3)}
+.ai-sndbtn{width:40px;height:40px;border-radius:11px;border:none;flex-shrink:0;background:var(--violet);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.ai-sndbtn:hover{background:var(--violet-l);transform:translateY(-2px)}
+.ai-sndbtn:disabled{opacity:.4;cursor:not-allowed;transform:none}
 </style>
 </head>
 <body>
@@ -967,6 +1017,9 @@ textarea.inp { resize: vertical; min-height: 80px; }
 
 <!-- ════════════════════════════════════════
      AUTH
+════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════
+     MAIN APP
 ════════════════════════════════════════ -->
 <div id="main-app">
   <!-- topbar -->
@@ -1137,6 +1190,17 @@ textarea.inp { resize: vertical; min-height: 80px; }
           
         </div>
 
+        <div class="tile tile-violet" onclick="openPage('ai')">
+          <div class="tile-icon-wrap">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--violet)">
+              <circle cx="20" cy="17" r="11" stroke="currentColor" stroke-width="2.2"/>
+              <path d="M13 17h5l3-5 3 9 3-4h3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15 31l5-5h8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="30" cy="31" r="3" fill="var(--tcl)" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="tile-label">مساعد ذكي</div>
+        </div>
       </div><!-- /icon-grid -->
     </div><!-- /home-screen -->
 
@@ -1150,6 +1214,7 @@ textarea.inp { resize: vertical; min-height: 80px; }
       <div id="page-notes"      class="inner-page"></div>
       <div id="page-quran"      class="inner-page"></div>
       <div id="page-settings"   class="inner-page"></div>
+      <div id="page-ai"         class="inner-page"></div>
     </div>
   </div>
 </div>
@@ -1201,8 +1266,7 @@ const S = {
 let CU = 'salmi';
 
 function startApp() {
-  // no auth screen
-  document.getElementById('main-app').style.display = 'flex';
+
   // load prefs
   const prefs = S.get(`prefs_${CU}`, {lang:'ar', dark:false});
   applyLang(prefs.lang, false);
@@ -1557,7 +1621,7 @@ function applyLang(lang, save=true) {
   if(save && currentPage) {
     const renders = {exams:renderExams, schedule:renderSchedule, music:renderMusic,
                      timer:renderTimer, notes:renderNotes, quran:renderQuran,
-                     timetable:renderTimetable, settings:renderSettings};
+                     timetable:renderTimetable, settings:renderSettings, ai:renderAI};
     const pg = document.getElementById('page-'+currentPage);
     if(pg && renders[currentPage]) renders[currentPage](pg);
   } else if(currentPage==='settings') {
@@ -1646,7 +1710,7 @@ const PAGE_LABELS_KEY = {
   exams:'exams', schedule:'schedule',
   timetable:'timetable', settings:'settings',
   music:'music', timer:'timer',
-  notes:'notes', quran:'quran'
+  notes:'notes', quran:'quran', ai:'المساعد الذكي'
 };
 let currentPage = null;
 
@@ -1667,7 +1731,7 @@ function openPage(name) {
   // render
   const renders = {exams:renderExams, schedule:renderSchedule, music:renderMusic,
                    timer:renderTimer, notes:renderNotes, quran:renderQuran,
-                   timetable:renderTimetable, settings:renderSettings};
+                   timetable:renderTimetable, settings:renderSettings, ai:renderAI};
   if (renders[name]) renders[name](el);
   window.scrollTo(0,0);
 }
@@ -2598,10 +2662,7 @@ function renderSettings(el) {
 
 function logOut() {
   if(!confirm(t('confirm_logout'))) return;
-  CU=null;
-  // no auth
-  location.reload();
-
+  CU=null; location.reload();
 }
 
 function clearAllData() {
@@ -2614,9 +2675,155 @@ function clearAllData() {
   const pg=document.getElementById('page-settings');
   if(pg) renderSettings(pg);
 }
+// ════ AI CHAT — GROQ ════
+var aiHist=[], aiLoading=false, aiMicOn=false, aiRecog=null;
+var GROQ_KEY='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';
+function aiNow(){var d=new Date();return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}
 
-// Auto-launch
-startApp();
+function renderAI(el) {
+  var msgs='';
+  if(aiHist.length){
+    aiHist.forEach(function(m){
+      var u=m.role==='user';
+      msgs+='<div class="ai-mrow '+(u?'user':'bot')+'">'
+        +'<div class="ai-mava">'+(u?(CU?CU[0].toUpperCase():'أ'):'🤖')+'</div>'
+        +'<div><div class="ai-bub">'+m.content+'</div><div class="ai-mtime">'+m.time+'</div></div>'
+        +'</div>';
+    });
+  } else {
+    msgs='<div class="ai-welcome">'
+      +'<div class="ai-wava">🤖</div>'
+      +'<div class="ai-wname">المساعد الذكي</div>'
+      +'<div class="ai-wsub">مرحباً! اسألني عن أي درس أو مادة — أتحدث العربية والفرنسية والإنجليزية.</div>'
+      +'</div>';
+  }
+  el.innerHTML='<div class="ai-page">'
+    +'<div class="ai-topbar">'
+      +'<div class="ai-ava">🤖</div>'
+      +'<div class="ai-tinfo"><div class="ai-tname">المساعد الذكي</div><div class="ai-tstatus" id="ai-ts">متصل</div></div>'
+      +'<button class="ai-tclear" onclick="aiClear()" title="مسح">'
+        +'<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>'
+      +'</button>'
+    +'</div>'
+    +'<div class="ai-msgs" id="ai-msgs">'+msgs+'</div>'
+    +'<div class="ai-spkbar" id="ai-spkbar">'
+      +'<div class="ai-wave"><span></span><span></span><span></span><span></span><span></span></div>'
+      +'<span class="ai-spklbl">يتحدث...</span>'
+      +'<button class="ai-spkstop" onclick="aiStopSpk()">&#9209;</button>'
+    +'</div>'
+    +'<div class="ai-inparea">'
+      +'<button class="ai-micbtn" id="ai-mic" onclick="aiMic()" title="تحدث">'
+        +'<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>'
+      +'</button>'
+      +'<textarea class="ai-txtarea" id="ai-inp" placeholder="اكتب أو تحدث..." rows="1"'
+        +' onkeydown="if(event.key===\'Enter\'&&!event.shiftKey){event.preventDefault();aiSend();}"'
+        +' oninput="this.style.height=\'auto\';this.style.height=Math.min(this.scrollHeight,100)+\'px\';"></textarea>'
+      +'<button class="ai-sndbtn" id="ai-snd" onclick="aiSend()">'
+        +'<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>'
+      +'</button>'
+    +'</div>'
+  +'</div>';
+  var box=document.getElementById('ai-msgs');
+  if(box) box.scrollTop=box.scrollHeight;
+}
+
+function aiClear(){aiHist=[];aiStopSpk();renderAI(document.getElementById('page-ai'));toast('🗑 تم مسح المحادثة','warn');}
+
+function aiAddMsg(role,text,time){
+  var box=document.getElementById('ai-msgs');if(!box) return null;
+  var w=box.querySelector('.ai-welcome');if(w) w.remove();
+  var u=role==='user';
+  var row=document.createElement('div');row.className='ai-mrow '+(u?'user':'bot');
+  var ava=document.createElement('div');ava.className='ai-mava';ava.textContent=u?(CU?CU[0].toUpperCase():'أ'):'🤖';
+  var bub=document.createElement('div');bub.className='ai-bub';bub.textContent=text;
+  var tm=document.createElement('div');tm.className='ai-mtime';tm.textContent=time||aiNow();
+  var wrap=document.createElement('div');wrap.appendChild(bub);wrap.appendChild(tm);
+  if(u){row.appendChild(wrap);row.appendChild(ava);}else{row.appendChild(ava);row.appendChild(wrap);}
+  box.appendChild(row);box.scrollTop=box.scrollHeight;return bub;
+}
+
+function aiSetStatus(busy){
+  aiLoading=busy;
+  var snd=document.getElementById('ai-snd'),mic=document.getElementById('ai-mic'),ts=document.getElementById('ai-ts');
+  if(snd) snd.disabled=busy;if(mic) mic.disabled=busy;
+  if(ts){ts.className='ai-tstatus'+(busy?' busy':'');ts.textContent=busy?'يفكر...':'متصل';}
+}
+
+function aiMic(){
+  if(aiMicOn){aiStopMic();return;}
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){toast('استخدم Chrome للتحدث الصوتي','err');return;}
+  aiRecog=new SR();aiRecog.lang='ar-DZ';aiRecog.continuous=false;aiRecog.interimResults=true;
+  aiRecog.onstart=function(){aiMicOn=true;var b=document.getElementById('ai-mic');if(b) b.classList.add('rec');var ts=document.getElementById('ai-ts');if(ts){ts.className='ai-tstatus busy';ts.textContent='يستمع...';}};
+  aiRecog.onresult=function(e){var t='';for(var i=e.resultIndex;i<e.results.length;i++) t+=e.results[i][0].transcript;var inp=document.getElementById('ai-inp');if(inp) inp.value=t;if(e.results[e.results.length-1].isFinal){aiStopMic();if(t.trim()) aiSend();}};
+  aiRecog.onerror=function(e){aiStopMic();if(e.error!=='no-speech') toast('خطأ: '+e.error,'err');};
+  aiRecog.onend=function(){aiStopMic();};
+  aiRecog.start();
+}
+
+function aiStopMic(){
+  aiMicOn=false;if(aiRecog){try{aiRecog.stop();}catch(e){} aiRecog=null;}
+  var b=document.getElementById('ai-mic');if(b) b.classList.remove('rec');
+  if(!aiLoading) aiSetStatus(false);
+}
+
+function aiSpeak(text){
+  if(!window.speechSynthesis) return;aiStopSpk();
+  var utt=new SpeechSynthesisUtterance(text);utt.lang='ar';utt.rate=0.92;
+  var arV=window.speechSynthesis.getVoices().find(function(v){return v.lang.startsWith('ar');});
+  if(arV) utt.voice=arV;
+  var bar=document.getElementById('ai-spkbar');if(bar) bar.classList.add('on');
+  utt.onend=utt.onerror=function(){if(bar) bar.classList.remove('on');};
+  window.speechSynthesis.speak(utt);
+}
+
+function aiStopSpk(){
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
+  var bar=document.getElementById('ai-spkbar');if(bar) bar.classList.remove('on');
+}
+
+async function aiSend(){
+  if(aiLoading) return;
+  var inp=document.getElementById('ai-inp');if(!inp) return;
+  var text=inp.value.trim();if(!text) return;
+  inp.value='';inp.style.height='auto';
+  var now=aiNow();
+  aiAddMsg('user',text,now);
+  aiHist.push({role:'user',content:text,time:now});
+  var bub=aiAddMsg('bot','...',now);
+  if(bub) bub.classList.add('thinking');
+  aiSetStatus(true);
+  try{
+    var resp=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
+      body:JSON.stringify({
+        model:'llama-3.3-70b-versatile',
+        max_tokens:1024,
+        temperature:0.7,
+        messages:[{role:'system',content:'أنت مساعد دراسي ذكي للطلاب. تشرح الدروس وتحل المسائل. تجيب بنفس لغة المستخدم (عربية أو فرنسية أو إنجليزية). كن واضحاً ومختصراً.'}].concat(
+          aiHist.slice(-14).map(function(m){return {role:m.role==='bot'?'assistant':'user',content:m.content};})
+        )
+      })
+    });
+    var data=await resp.json();
+    var reply=(data.choices&&data.choices[0])?data.choices[0].message.content:'حدث خطأ. حاول مجدداً.';
+    if(data.error) reply='خطأ: '+data.error.message;
+    if(bub){bub.classList.remove('thinking');bub.textContent=reply;}
+    var box=document.getElementById('ai-msgs');if(box) box.scrollTop=box.scrollHeight;
+    aiHist.push({role:'bot',content:reply,time:now});
+    aiSpeak(reply);
+  }catch(err){
+    if(bub){
+      bub.classList.remove('thinking');
+      bub.textContent='خطأ: '+err.message;
+      console.error('AI Error:', err);
+    }
+  }
+  aiSetStatus(false);
+}
+
+document.addEventListener("DOMContentLoaded", function() { startApp(); });
 </script>
 </body>
 </html>
